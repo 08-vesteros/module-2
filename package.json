@@ -10,8 +10,11 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "npm run eslint"
+      "pre-commit": "lint-staged"
     }
+  },
+  "lint-staged": {
+    "*.(js|jsx)": ["npm run eslint", "git add"]
   },
   "repository": {
     "type": "git",
@@ -38,6 +41,7 @@
     "eslint-plugin-react-hooks": "^4.2.0",
     "html-webpack-plugin": "^5.3.2",
     "husky": "^7.0.2",
+    "lint-staged": "^11.1.2",
     "path": "^0.12.7",
     "prettier": "^2.4.1",
     "ts-loader": "^9.2.5",
