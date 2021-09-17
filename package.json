@@ -10,8 +10,18 @@
   },
   "husky": {
     "hooks": {
-      "pre-commit": "lint-staged"
+      "pre-commit": "lint-staged --relative"
     }
+  },
+  "lint-staged": {
+    "*.{ts,js,tsx,jsx}": [
+      "eslint '*/**/*.{js,ts,tsx}' --fix",
+      "git add"
+    ],
+    "*.{html,scss,css}": [
+      "prettier --write --config .prettierr.yaml",
+      "git add"
+    ]
   },
   "repository": {
     "type": "git",
