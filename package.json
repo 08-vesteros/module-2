@@ -22,7 +22,9 @@
 		"type": "git",
 		"url": "git+https://github.com/08-vesteros/module-2.git"
 	},
-	"engines": { "node": "14.17.4" },
+	"engines": {
+		"node": "14.17.4"
+	},
 	"keywords": [],
 	"author": "",
 	"license": "ISC",
