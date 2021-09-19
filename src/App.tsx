@@ -1,6 +1,8 @@
 import React from 'react';
 import Button from './components/Button';
 
-const App = () => <Button>Module 5</Button>;
+const App = () => (
+	<Button content='START' onClick={() => console.log('click')} />
+);
 
 export default App;
