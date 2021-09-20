@@ -4,7 +4,7 @@ import { ButtonWrapperProps } from './types';
 
 export const ButtonWrapper = styled.button<ButtonWrapperProps>`
 	cursor: pointer;
-	background-color: ${props => props.backgroundColor || 'transparent'};
+	background-color: ${props => props.view};
 	border: ${props => props.border || `2px solid ${RED_COLOR}`};
 	color: ${props => props.color || 'black'};
 	padding: ${props => props.padding || '12px 0'};

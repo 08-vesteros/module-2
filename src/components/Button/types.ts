@@ -1,5 +1,10 @@
 import { MouseEventHandler } from 'react';
 
+// export enum ButtonTypes {
+// 	inGame = 'inGame',
+// 	default = 'default',
+// }
+
 export type ButtonProps = {
 	onClick: MouseEventHandler<HTMLButtonElement>;
 	content: string;
@@ -15,6 +20,7 @@ export type ButtonWrapperProps = {
 	colorHover?: string;
 	border?: string;
 	disabled?: boolean;
+	view?: any;
 };
 
 export type Props = ButtonProps & ButtonWrapperProps;
