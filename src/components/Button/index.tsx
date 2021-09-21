@@ -1,9 +1,9 @@
 import React from 'react';
 import { ButtonWrapper } from './styled';
-import { ButtonTypes, Props } from './types';
+import { Props } from './types';
 
-const Button = ({ content, view = ButtonTypes.default }: Props) => (
-	<ButtonWrapper view={view}>{content}</ButtonWrapper>
+const Button = ({ content, ...props }: Props) => (
+	<ButtonWrapper {...props}>{content}</ButtonWrapper>
 );
 
 export default Button;
