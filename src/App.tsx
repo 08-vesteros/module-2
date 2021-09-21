@@ -1,6 +1,6 @@
 import React from 'react';
-import Button from './components/Button';
+import Game from './pages/game';
 
-const App = () => <Button>Module 5</Button>;
+const App = () => <Game />;
 
 export default App;
