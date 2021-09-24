@@ -1,6 +1,9 @@
-import React, { FC } from 'react';
+import React from 'react';
 import { ButtonWrapper } from './styled';
+import { Props } from './types';
 
-const Button: FC = ({ children }) => <ButtonWrapper>{children}</ButtonWrapper>;
+const Button = ({ content, ...props }: Props) => (
+	<ButtonWrapper {...props}>{content}</ButtonWrapper>
+);
 
 export default Button;
