@@ -6,4 +6,5 @@ export const Wrapper = styled.div`
 `;
 export const Canvas = styled.canvas`
 	border: 1px solid red;
+	outline: none;
 `;
