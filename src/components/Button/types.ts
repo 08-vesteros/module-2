@@ -1,8 +1,9 @@
 import { MouseEventHandler } from 'react';
 
 export type ButtonProps = {
-	onClick: MouseEventHandler<HTMLButtonElement>;
+	onClick?: MouseEventHandler<HTMLButtonElement>;
 	content: string;
+	type?: 'button' | 'submit' | 'reset';
 };
 
 export type ButtonWrapperProps = {

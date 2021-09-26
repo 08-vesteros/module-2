@@ -1,18 +1,59 @@
 import React from 'react';
-import { ThemeProvider } from 'styled-components';
-import Button from './components/Button';
-import { inGameButtonTheme } from './components/Button/styled';
-import Input from './components/Input';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import Home from './pages/home';
+import Signup from './pages/signup';
+import Signin from './pages/signin';
+import Profile from './pages/profile';
+import ErrorModal from './components/Error';
+import { ErrorProvider } from './contexts/error';
+import Forum from './pages/forum';
+import Scoreboard from './pages/scoreboard';
+import { TRoutes, TRoute } from './modules/Header/types';
+import Header from './modules/Header';
+
+const routes: TRoutes = [
+	{
+		path: '/',
+		component: Home,
+	},
+	{
+		path: '/signup',
+		component: Signup,
+	},
+	{
+		path: '/signin',
+		component: Signin,
+	},
+	{
+		path: '/profile',
+		component: Profile,
+	},
+	{
+		path: '/scoreboard',
+		component: Scoreboard,
+	},
+	{
+		path: '/forum',
+		component: Forum,
+	},
+];
 
 const App = () => (
-	<div style={{ display: 'flex', flexDirection: 'column' }}>
-		<ThemeProvider theme={inGameButtonTheme}>
-			<Button content='START' onClick={() => console.log('click')} />
-		</ThemeProvider>
+	<div className='container'>
+		<Router>
+			<Header routes={routes} />
 
-		<Button disabled content='disabled' onClick={() => console.log('click')} />
-
-		<Input />
+			<ErrorProvider>
+				<main>
+					<Switch>
+						{routes.map((route: TRoute) => (
+							<Route exact {...route} key={route.path} />
+						))}
+					</Switch>
+				</main>
+				<ErrorModal />
+			</ErrorProvider>
+		</Router>
 	</div>
 );
 
