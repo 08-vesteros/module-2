@@ -1,43 +1,7 @@
 import React from 'react';
 import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
-import Home from './pages/home';
-import Signup from './pages/signup';
-import Signin from './pages/signin';
-import Profile from './pages/profile';
-import Forum from './pages/forum';
-import Scoreboard from './pages/scoreboard';
-
-type TRoute = {
-	path: string;
-	component: React.FunctionComponent;
-};
-
-const routes: Array<TRoute> = [
-	{
-		path: '/',
-		component: Home,
-	},
-	{
-		path: '/signup',
-		component: Signup,
-	},
-	{
-		path: '/signin',
-		component: Signin,
-	},
-	{
-		path: '/profile',
-		component: Profile,
-	},
-	{
-		path: '/scoreboard',
-		component: Scoreboard,
-	},
-	{
-		path: '/forum',
-		component: Forum,
-	},
-];
+import { routes } from './routes';
+import { TRoute } from './routes/types';
 
 const App = () => (
 	<main className='container'>
