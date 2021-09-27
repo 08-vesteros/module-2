@@ -5,6 +5,9 @@ module.exports = {
 	entry: {
 		main: './src/index.tsx',
 	},
+	devServer: {
+		historyApiFallback: true,
+	},
 	output: {
 		path: path.join(__dirname, '/dist'),
 		filename: 'bundle.js',

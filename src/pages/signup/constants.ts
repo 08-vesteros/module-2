@@ -1,4 +1,4 @@
-import { TInput } from '../../utils/types';
+import { TInitialValues, TInput } from '../../utils/types';
 
 export const inputs: Array<TInput> = [
 	{
@@ -37,3 +37,13 @@ export const inputs: Array<TInput> = [
 		name: 'confirm_password',
 	},
 ];
+
+export const initialValues: TInitialValues = {
+	first_name: '',
+	second_name: '',
+	email: '',
+	phone: '',
+	login: '',
+	password: '',
+	confirm_password: '',
+};

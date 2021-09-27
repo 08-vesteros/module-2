@@ -15,17 +15,7 @@ import {
 import InputGroup from '../../components/InputGroup';
 import Button from '../../components/Button';
 import Form from '../../components/Form';
-import { inputs } from './constants';
-
-const initialValues: TInitialValues = {
-	first_name: '',
-	second_name: '',
-	email: '',
-	phone: '',
-	login: '',
-	password: '',
-	confirm_password: '',
-};
+import { initialValues, inputs } from './constants';
 
 const Signup: FC = () => {
 	const { setError } = useContext(ErrorContext);
