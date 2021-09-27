@@ -1,7 +1,6 @@
 import React, { FC, useContext } from 'react';
 import { useFormik } from 'formik';
-import axiosWrap from '../../utils/axios';
-import { TInitialValues, TInput } from '../../utils/types';
+import { TFieldValues, TInput } from '../../utils/types';
 import ErrorContext from '../../contexts/error';
 import {
 	isValidLength,
@@ -15,6 +14,7 @@ import {
 import InputGroup from '../../components/InputGroup';
 import Button from '../../components/Button';
 import Form from '../../components/Form';
+import { signup } from '../../utils/user';
 
 const inputs: Array<TInput> = [
 	{
@@ -54,7 +54,7 @@ const inputs: Array<TInput> = [
 	},
 ];
 
-const initialValues: TInitialValues = {
+const initialValues: TFieldValues = {
 	first_name: '',
 	second_name: '',
 	email: '',
@@ -70,17 +70,13 @@ const Signup: FC = () => {
 	const formik = useFormik({
 		initialValues,
 		onSubmit: async values => {
-			const res = await axiosWrap({
-				method: 'POST',
-				url: '/auth/signup',
-				data: values,
-			});
+			const res = await signup(values);
 			if (res.status !== 200) setError(res.data.reason);
 		},
 		validateOnChange: false,
 		validateOnBlur: true,
 		validate: values => {
-			const errors: TInitialValues = {};
+			const errors: TFieldValues = {};
 
 			Object.keys(values).forEach(key => {
 				if (isEmpty(values[key])) {

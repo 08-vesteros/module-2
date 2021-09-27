@@ -4,6 +4,6 @@ export type TInput = {
 	name: string;
 };
 
-export type TInitialValues = {
+export type TFieldValues = {
 	[key: string]: string;
 };
