@@ -1,3 +1,4 @@
+export const praktikumBaseURL = 'https://ya-praktikum.tech/api/v2';
 export const PRIMARY_COLOR = '#8774E1';
 export const DARK_PRIMARY_COLOR = '#6a52da';
 export const WHITE_COLOR = '#ffffff';
