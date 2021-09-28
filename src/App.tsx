@@ -1,44 +1,28 @@
 import React from 'react';
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import ErrorModal from './components/Error';
+import { ErrorProvider } from './contexts/error';
+import { TRoute } from './modules/Header/types';
+import Header from './modules/Header';
 import { routes } from './routes';
-import { TRoute } from './routes/types';
 
 const App = () => (
-	<main className='container'>
+	<div className='container'>
 		<Router>
-			<ul>
-				<li>
-					<Link to='/'>Home</Link>
-				</li>
-				<li>
-					<Link to='/signup'>Signup</Link>
-				</li>
-				<li>
-					<Link to='/signin'>Signin</Link>
-				</li>
-				<li>
-					<Link to='/profile'>Profile</Link>
-				</li>
-				<li>
-					<Link to='/scoreboard'>Scoreboard</Link>
-				</li>
-				<li>
-					<Link to='/forum'>Forum</Link>
-				</li>
-			</ul>
+			<Header routes={routes} />
 
-			<Switch>
-				{routes.map((route: TRoute) => (
-					<Route
-						exact
-						path={route.path}
-						component={route.component}
-						key={route.path}
-					/>
-				))}
-			</Switch>
+			<ErrorProvider>
+				<main>
+					<Switch>
+						{routes.map((route: TRoute) => (
+							<Route exact {...route} key={route.path} />
+						))}
+					</Switch>
+				</main>
+				<ErrorModal />
+			</ErrorProvider>
 		</Router>
-	</main>
+	</div>
 );
 
 export default App;
