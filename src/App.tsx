@@ -13,7 +13,7 @@ import { loggedInRoutes, loggedOutRoutes } from './routes';
 import useUser from './contexts/user';
 
 const App = () => {
-	const { user, isLoggedIn, isLoading, getAndSetUser } = useUser();
+	const { isLoggedIn, isLoading, getAndSetUser } = useUser();
 
 	useEffect(() => {
 		getAndSetUser();
@@ -37,8 +37,6 @@ const App = () => {
 								))}
 								<Route render={() => <Redirect to='/' />} />
 							</Switch>
-
-							<p>{user?.id}</p>
 						</main>
 						<ErrorModal />
 					</ErrorProvider>

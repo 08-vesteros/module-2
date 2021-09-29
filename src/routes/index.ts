@@ -23,10 +23,6 @@ export const loggedInRoutes: Array<TRoute> = [
 		path: '/forum',
 		component: Forum,
 	},
-	{
-		path: '/logout',
-		component: Forum,
-	},
 ];
 
 export const loggedOutRoutes: Array<TRoute> = [
