@@ -8,15 +8,23 @@ import { initialValues, inputs } from './constants';
 import { signUp } from '../../utils/user';
 import useError from '../../contexts/error';
 import validate from './validation';
+import useUser from '../../contexts/user';
 
 const Signup: FC = () => {
 	const { setError } = useError();
+	const { setLoggedIn } = useUser();
 
 	const formik = useFormik({
 		initialValues,
 		onSubmit: async values => {
 			const res = await signUp(values);
-			if (res.status !== 200) setError(res.data.reason);
+
+			if (res.status !== 200) {
+				setError(res.data.reason);
+				return;
+			}
+
+			setLoggedIn(true);
 		},
 		validateOnChange: false,
 		validateOnBlur: true,
