@@ -1,10 +1,10 @@
-import React, { useCallback, useContext, MouseEvent } from 'react';
-import ErrorContext from '../../contexts/error';
+import React, { useCallback, MouseEvent } from 'react';
 import { ErrorWrapper } from './styled';
 import Button from '../Button';
+import useError from '../../contexts/error';
 
 const ErrorModal = () => {
-	const { error, setError } = useContext(ErrorContext);
+	const { error, setError } = useError();
 	const hideError = useCallback(
 		(e: MouseEvent<HTMLDivElement | HTMLButtonElement>) => {
 			if (e.currentTarget !== e.target) return;

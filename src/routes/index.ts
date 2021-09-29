@@ -6,7 +6,30 @@ import Signin from '../pages/signin';
 import Signup from '../pages/signup';
 import { TRoute } from './types';
 
-export const routes: Array<TRoute> = [
+export const loggedInRoutes: Array<TRoute> = [
+	{
+		path: '/',
+		component: Home,
+	},
+	{
+		path: '/profile',
+		component: Profile,
+	},
+	{
+		path: '/scoreboard',
+		component: Scoreboard,
+	},
+	{
+		path: '/forum',
+		component: Forum,
+	},
+	{
+		path: '/logout',
+		component: Forum,
+	},
+];
+
+export const loggedOutRoutes: Array<TRoute> = [
 	{
 		path: '/',
 		component: Home,
@@ -18,10 +41,6 @@ export const routes: Array<TRoute> = [
 	{
 		path: '/signin',
 		component: Signin,
-	},
-	{
-		path: '/profile',
-		component: Profile,
 	},
 	{
 		path: '/scoreboard',

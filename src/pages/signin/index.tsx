@@ -1,74 +1,34 @@
 import { useFormik } from 'formik';
-import React, { FC, useContext } from 'react';
+import React, { FC } from 'react';
 import Button from '../../components/Button';
 import Form from '../../components/Form';
 import InputGroup from '../../components/InputGroup';
-import ErrorContext from '../../contexts/error';
-import { TInput, TFieldValues } from '../../utils/types';
-import {
-	isEmpty,
-	isValidLength,
-	isLogin,
-	isPassword,
-} from '../../utils/validators';
-import { signin } from '../../utils/user';
-
-const inputs: Array<TInput> = [
-	{
-		label: 'Login',
-		type: 'text',
-		name: 'login',
-	},
-	{
-		label: 'Password',
-		type: 'password',
-		name: 'password',
-	},
-];
-
-const initialValues: TFieldValues = {
-	login: '',
-	password: '',
-};
+import { TInput } from '../../utils/types';
+import { signIn } from '../../utils/user';
+import useError from '../../contexts/error';
+import validate from './validation';
+import { initialValues, inputs } from './constants';
+import useUser from '../../contexts/user';
 
 const Signin: FC = () => {
-	const { setError } = useContext(ErrorContext);
+	const { setError } = useError();
+	const { setLoggedIn } = useUser();
 
 	const formik = useFormik({
 		initialValues,
 		onSubmit: async values => {
-			const res = await signin(values);
+			const res = await signIn(values);
 
 			if (res.status !== 200) {
 				setError(res.data.reason);
+				return;
 			}
+
+			setLoggedIn(true);
 		},
 		validateOnChange: false,
 		validateOnBlur: true,
-		validate: values => {
-			const errors: TFieldValues = {};
-
-			Object.keys(values).forEach(key => {
-				if (isEmpty(values[key])) {
-					errors[key] = 'Required';
-				}
-			});
-
-			if (!isLogin(values.login)) {
-				errors.login =
-					'Can contain only latin letters, numbers, underscores or hyphens';
-			}
-
-			if (!isValidLength(5)(values.login)) {
-				errors.login = 'Login should be at least 5 characters long';
-			}
-
-			if (!isPassword(values.password)) {
-				errors.password = 'Password must not contain whitespaces';
-			}
-
-			return errors;
-		},
+		validate,
 	});
 
 	return (

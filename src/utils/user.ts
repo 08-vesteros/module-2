@@ -1,14 +1,14 @@
 import axiosWrap from './axios';
 import { TFieldValues } from './types';
 
-const signup = (values: TFieldValues) =>
+const signUp = (values: TFieldValues) =>
 	axiosWrap({
 		method: 'POST',
 		url: '/auth/signup',
 		data: values,
 	});
 
-const signin = (values: TFieldValues) =>
+const signIn = (values: TFieldValues) =>
 	axiosWrap({
 		method: 'POST',
 		url: '/auth/signin',
@@ -21,4 +21,15 @@ const getUser = () =>
 		url: '/auth/user',
 	});
 
-export { signup, signin, getUser };
+const checkAuth = async () => {
+	const res = await getUser();
+	return res.status === 200;
+};
+
+const logOut = () =>
+	axiosWrap({
+		method: 'POST',
+		url: '/auth/logout',
+	});
+
+export { signUp, signIn, getUser, checkAuth, logOut };

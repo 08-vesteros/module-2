@@ -1,28 +1,51 @@
-import React from 'react';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import React, { useEffect } from 'react';
+import {
+	BrowserRouter as Router,
+	Switch,
+	Route,
+	Redirect,
+} from 'react-router-dom';
 import ErrorModal from './components/Error';
 import { ErrorProvider } from './contexts/error';
 import { TRoute } from './modules/Header/types';
 import Header from './modules/Header';
-import { routes } from './routes';
+import { loggedInRoutes, loggedOutRoutes } from './routes';
+import useUser from './contexts/user';
 
-const App = () => (
-	<div className='container'>
-		<Router>
-			<Header routes={routes} />
+const App = () => {
+	const { user, isLoggedIn, isLoading, getAndSetUser } = useUser();
 
-			<ErrorProvider>
-				<main>
-					<Switch>
-						{routes.map((route: TRoute) => (
-							<Route exact {...route} key={route.path} />
-						))}
-					</Switch>
-				</main>
-				<ErrorModal />
-			</ErrorProvider>
-		</Router>
-	</div>
-);
+	useEffect(() => {
+		getAndSetUser();
+	}, [isLoggedIn]);
+
+	const routes = isLoggedIn ? loggedInRoutes : loggedOutRoutes;
+
+	return (
+		<div className='container'>
+			{isLoading ? (
+				<p>Loading...</p>
+			) : (
+				<Router>
+					<Header routes={routes} />
+
+					<ErrorProvider>
+						<main>
+							<Switch>
+								{routes.map((route: TRoute) => (
+									<Route exact {...route} key={route.path} />
+								))}
+								<Route render={() => <Redirect to='/' />} />
+							</Switch>
+
+							<p>{user?.id}</p>
+						</main>
+						<ErrorModal />
+					</ErrorProvider>
+				</Router>
+			)}
+		</div>
+	);
+};
 
 export default App;
