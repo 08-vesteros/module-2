@@ -39,5 +39,5 @@ export enum Methods {
 export type TRequest = {
 	method: Methods;
 	url: string;
-	data?: TFieldValues;
+	data?: TFieldValues | FormData;
 };

@@ -11,6 +11,7 @@ import validate from './validation';
 import Form from '../../components/Form';
 import ButtonContainer from '../../components/ButtonContainer';
 import ChangePass from '../../modules/ChangePass';
+import Avatar from '../../modules/Avatar';
 
 const Profile: FC = () => {
 	const { setWarn } = useWarn();
@@ -48,38 +49,41 @@ const Profile: FC = () => {
 	return isChangePass ? (
 		<ChangePass returnAction={setChangePass} />
 	) : (
-		<Form onSubmit={formik.handleSubmit}>
-			{inputs.map(({ label, name, type }: TInput) => (
-				<InputGroup
-					key={name}
-					label={label}
-					name={name}
-					type={type}
-					disabled={!isEdit}
-					value={formik.values[name] || ''}
-					touched={formik.touched[name]}
-					error={formik.errors[name]}
-					onChange={formik.handleChange}
-					onBlur={formik.handleBlur}
-				/>
-			))}
-			<ButtonContainer>
-				{isEdit ? (
-					<Button type='submit' content='Save' disabled={formik.isSubmitting} />
-				) : (
+		<>
+			<Avatar />
+			<Form onSubmit={formik.handleSubmit}>
+				{inputs.map(({ label, name, type }: TInput) => (
+					<InputGroup
+						key={name}
+						label={label}
+						name={name}
+						type={type}
+						disabled={!isEdit}
+						value={formik.values[name] || ''}
+						touched={formik.touched[name]}
+						error={formik.errors[name]}
+						onChange={formik.handleChange}
+						onBlur={formik.handleBlur}
+					/>
+				))}
+				<ButtonContainer>
+					{isEdit ? (
+						<Button type='submit' content='Save' disabled={formik.isSubmitting} />
+					) : (
+						<Button
+							type='button'
+							content='Change Password'
+							onClick={() => setChangePass(true)}
+						/>
+					)}
 					<Button
 						type='button'
-						content='Change Password'
-						onClick={() => setChangePass(true)}
+						content={isEdit ? 'Cancel' : 'Edit User Info'}
+						onClick={toggleEdit}
 					/>
-				)}
-				<Button
-					type='button'
-					content={isEdit ? 'Cancel' : 'Edit User Info'}
-					onClick={toggleEdit}
-				/>
-			</ButtonContainer>
-		</Form>
+				</ButtonContainer>
+			</Form>
+		</>
 	);
 };
 

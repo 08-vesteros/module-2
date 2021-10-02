@@ -46,6 +46,13 @@ const changePassword = (values: TUserPass) =>
 		data: values,
 	});
 
+const changeAvatar = (formData: FormData) =>
+	axiosWrap({
+		method: Methods.PUT,
+		url: '/user/profile/avatar',
+		data: formData,
+	});
+
 export {
 	signUp,
 	signIn,
@@ -54,4 +61,5 @@ export {
 	logOut,
 	updateUser,
 	changePassword,
+	changeAvatar,
 };
