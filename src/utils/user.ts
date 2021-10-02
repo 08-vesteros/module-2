@@ -1,23 +1,23 @@
 import axiosWrap from './axios';
-import { TFieldValues } from './types';
+import { TFieldValues, Methods, TUserInfo, TUserPass } from './types';
 
 const signUp = (values: TFieldValues) =>
 	axiosWrap({
-		method: 'POST',
+		method: Methods.POST,
 		url: '/auth/signup',
 		data: values,
 	});
 
 const signIn = (values: TFieldValues) =>
 	axiosWrap({
-		method: 'POST',
+		method: Methods.POST,
 		url: '/auth/signin',
 		data: values,
 	});
 
 const getUser = () =>
 	axiosWrap({
-		method: 'GET',
+		method: Methods.GET,
 		url: '/auth/user',
 	});
 
@@ -28,8 +28,30 @@ const checkAuth = async () => {
 
 const logOut = () =>
 	axiosWrap({
-		method: 'POST',
+		method: Methods.POST,
 		url: '/auth/logout',
 	});
 
-export { signUp, signIn, getUser, checkAuth, logOut };
+const updateUser = (values: TUserInfo) =>
+	axiosWrap({
+		method: Methods.PUT,
+		url: '/user/profile',
+		data: values,
+	});
+
+const changePassword = (values: TUserPass) =>
+	axiosWrap({
+		method: Methods.PUT,
+		url: '/user/password',
+		data: values,
+	});
+
+export {
+	signUp,
+	signIn,
+	getUser,
+	checkAuth,
+	logOut,
+	updateUser,
+	changePassword,
+};

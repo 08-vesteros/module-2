@@ -5,8 +5,8 @@ import {
 	Route,
 	Redirect,
 } from 'react-router-dom';
-import ErrorModal from './components/Error';
-import { ErrorProvider } from './contexts/error';
+import WarnModal from './components/Warn';
+import { WarnProvider } from './contexts/warn';
 import { TRoute } from './modules/Header/types';
 import Header from './modules/Header';
 import { loggedInRoutes, loggedOutRoutes } from './routes';
@@ -29,7 +29,7 @@ const App = () => {
 				<Router>
 					<Header routes={routes} />
 
-					<ErrorProvider>
+					<WarnProvider>
 						<main>
 							<Switch>
 								{routes.map((route: TRoute) => (
@@ -38,8 +38,8 @@ const App = () => {
 								<Route render={() => <Redirect to='/' />} />
 							</Switch>
 						</main>
-						<ErrorModal />
-					</ErrorProvider>
+						<WarnModal />
+					</WarnProvider>
 				</Router>
 			)}
 		</div>

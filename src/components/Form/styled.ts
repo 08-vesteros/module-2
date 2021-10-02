@@ -7,6 +7,6 @@ export const FormWrapper = styled.form`
 	align-items: center;
 
 	${ButtonWrapper} {
-		margin-top: 30px;
+		margin: 10px;
 	}
 `;

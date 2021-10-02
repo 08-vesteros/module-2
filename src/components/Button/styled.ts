@@ -26,6 +26,8 @@ export const ButtonWrapper = styled.button<ButtonWrapperProps>`
 	opacity: ${props => (props.disabled ? 0.3 : 1)};
 	pointer-events: ${props => (props.disabled ? 'none' : 'auto')};
 	font-size: 16px;
+	text-decoration: none;
+	text-align: center;
 
 	&:hover {
 		background-color: ${props =>

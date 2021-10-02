@@ -5,13 +5,14 @@ import Form from '../../components/Form';
 import InputGroup from '../../components/InputGroup';
 import { TInput } from '../../utils/types';
 import { signIn } from '../../utils/user';
-import useError from '../../contexts/error';
+import useWarn from '../../contexts/warn';
 import validate from './validation';
 import { initialValues, inputs } from './constants';
 import useUser from '../../contexts/user';
+import ButtonContainer from '../../components/ButtonContainer';
 
 const Signin: FC = () => {
-	const { setError } = useError();
+	const { setWarn } = useWarn();
 	const { setLoggedIn } = useUser();
 
 	const formik = useFormik({
@@ -20,7 +21,7 @@ const Signin: FC = () => {
 			const res = await signIn(values);
 
 			if (res.status !== 200) {
-				setError(res.data.reason);
+				setWarn(res.data.reason);
 				return;
 			}
 
@@ -46,7 +47,9 @@ const Signin: FC = () => {
 					onBlur={formik.handleBlur}
 				/>
 			))}
-			<Button type='submit' content='Login' disabled={formik.isSubmitting} />
+			<ButtonContainer>
+				<Button type='submit' content='Login' disabled={formik.isSubmitting} />
+			</ButtonContainer>
 		</Form>
 	);
 };
