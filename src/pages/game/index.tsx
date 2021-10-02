@@ -8,11 +8,12 @@ import {
 } from '../../constants';
 import { Canvas, Wrapper } from './styled';
 import { ObstaclesType } from './types';
+import { createDyno } from './utils/create-dyno';
+import { createObstacle } from './utils/create-obstacle';
 
 const Game = () => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
-	const xPos = 0;
-	let yPos = 200;
+	const pos = { x: 0, y: 200 };
 	const obstacles: ObstaclesType[] = [];
 	obstacles[0] = {
 		x: CANVAS_WIDTH * 2,
@@ -21,35 +22,11 @@ const Game = () => {
 		h: 80,
 	};
 
-	const createDyno = (
-		ctx: CanvasRenderingContext2D,
-		x: number,
-		y: number,
-		w: number,
-		h: number
-	) => {
-		ctx.beginPath();
-		ctx.fillRect(x, y, w, h);
-		ctx.closePath();
-	};
-
 	const jump = () => {
 		// TOTO smooth jumping up
-		if (yPos === 200) {
-			yPos = JUPM_HEIGHT;
+		if (pos.y === 200) {
+			pos.y = JUPM_HEIGHT;
 		}
-	};
-
-	const createObstacle = (
-		ctx: CanvasRenderingContext2D,
-		x: number,
-		y: number,
-		w: number,
-		h: number
-	) => {
-		ctx.beginPath();
-		ctx.fillRect(x, y, w, h);
-		ctx.closePath();
 	};
 
 	useEffect(() => {
@@ -65,12 +42,12 @@ const Game = () => {
 		const render = () => {
 			if (canvas) {
 				context?.clearRect(0, 0, canvas.width, canvas.height);
-				createDyno(context, xPos, yPos, 100, 100);
+				createDyno(context, pos.x, pos.y, 100, 100);
 
-				if (yPos < 200) {
-					yPos += GRAVITY;
+				if (pos.y < 200) {
+					pos.y += GRAVITY;
 				} else {
-					yPos = 200;
+					pos.y = 200;
 				}
 
 				for (let i = 0; i < obstacles.length; i += 1) {
