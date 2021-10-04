@@ -7,3 +7,10 @@ export const RED_COLOR = '#ff0000';
 export const INPUT_BORDER_COLOR = '#2f2f2f';
 export const LIGHT_GREY = '#e6e6e6';
 export const BORDER = `solid 1px ${LIGHT_GREY}`;
+
+// game settings
+export const CANVAS_WIDTH = 600;
+export const CANVAS_HEIGHT = 150;
+export const GRAVITY = 5;
+export const JUPM_HEIGHT = 30;
+export const GAME_SPEED = 15;
