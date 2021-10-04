@@ -6,7 +6,8 @@ import {
 	GRAVITY,
 	GAME_SPEED,
 } from '../../constants';
-import { Canvas, Wrapper } from './styled';
+import { Wrapper } from '../../ui/wrapper';
+import { Canvas } from './styled';
 import { ObstaclesType } from './types';
 import { createDyno } from './utils/create-dyno';
 import { createObstacle } from './utils/create-obstacle';
