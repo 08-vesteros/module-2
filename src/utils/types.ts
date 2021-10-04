@@ -4,6 +4,17 @@ export type TInput = {
 	name: string;
 };
 
-export type TInitialValues = {
+export type TFieldValues = {
 	[key: string]: string;
 };
+
+export type TUser = {
+	id: number;
+	firstName: string;
+	secondName: string;
+	displayName: string;
+	login: string;
+	email: string;
+	phone: string;
+	avatar: string;
+} | null;

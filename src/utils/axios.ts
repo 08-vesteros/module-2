@@ -2,6 +2,7 @@ import axios, { AxiosResponse } from 'axios';
 import { PRAKTIKUM_BASE_URL } from '../constants/index';
 
 axios.defaults.baseURL = PRAKTIKUM_BASE_URL;
+axios.defaults.withCredentials = true;
 
 axios.interceptors.response.use(
 	res => res,

@@ -19,6 +19,11 @@ export const HeaderWrapper = styled.header`
 			font-weight: 600;
 			text-decoration: none;
 			transition: 0.3s;
+			border: none;
+			background-color: initial;
+			font-size: 16px;
+			font-family: sans-serif;
+			cursor: pointer;
 
 			& + .nav__link {
 				border-left: ${BORDER};
