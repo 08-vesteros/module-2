@@ -1,7 +1,7 @@
 import styled from 'styled-components';
 import { WHITE_COLOR } from '../../constants';
 
-export const ErrorWrapper = styled.div`
+export const WarnWrapper = styled.div`
 	position: fixed;
 	left: 0;
 	top: 0;
@@ -10,7 +10,7 @@ export const ErrorWrapper = styled.div`
 	background-color: #0000004d;
 	z-index: 10;
 
-	.error__dialog {
+	.warn__dialog {
 		position: absolute;
 		top: 50%;
 		left: 50%;
@@ -24,7 +24,7 @@ export const ErrorWrapper = styled.div`
 		text-align: center;
 	}
 
-	.error__text {
+	.warn__text {
 		margin-bottom: 30px;
 		font-size: 18px;
 	}

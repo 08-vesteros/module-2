@@ -36,8 +36,9 @@ export const InputGroupWrapper = styled.div`
 	${InputWrapper} {
 		outline: none;
 		width: 100%;
+		transition: 0.2s;
 
-		&[value='']:not(input:focus) {
+		&[value='']:not(:focus):not(:disabled) {
 			& + .input__label {
 				font-size: 18px;
 				top: 50%;

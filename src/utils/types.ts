@@ -8,13 +8,36 @@ export type TFieldValues = {
 	[key: string]: string;
 };
 
-export type TUser = {
-	id: number;
-	firstName: string;
-	secondName: string;
-	displayName: string;
+export type TUserInfo = {
+	[first_name: string]: string;
+	second_name: string;
+	display_name: string;
 	login: string;
 	email: string;
 	phone: string;
 	avatar: string;
-} | null;
+};
+
+export type TUser =
+	| (TUserInfo & {
+			id: number;
+	  })
+	| null;
+
+export type TUserPass = {
+	oldPassword: string;
+	newPassword: string;
+};
+
+export enum Methods {
+	GET = 'GET',
+	POST = 'POST',
+	PUT = 'PUT',
+	DELETE = 'DELETE',
+}
+
+export type TRequest = {
+	method: Methods;
+	url: string;
+	data?: TFieldValues | FormData;
+};

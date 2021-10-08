@@ -13,7 +13,7 @@ export const loggedInRoutes: Array<TRoute> = [
 		path: '/',
 		component: Home,
 	},
-  {
+	{
 		path: '/start',
 		component: Start,
 	},

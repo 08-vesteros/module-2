@@ -1,31 +1,31 @@
-import React, { FC } from 'react';
 import { useFormik } from 'formik';
-import { TInput } from '../../utils/types';
-import InputGroup from '../../components/InputGroup';
-import Button from '../../components/Button';
-import Form from '../../components/Form';
+import React, { FC } from 'react';
 import { initialValues, inputs } from './constants';
-import { signUp } from '../../utils/user';
+import Button from '../../components/Button';
+import InputGroup from '../../components/InputGroup';
+import { TInput, TUserPass } from '../../utils/types';
 import useWarn from '../../contexts/warn';
 import validate from './validation';
-import useUser from '../../contexts/user';
+import Form from '../../components/Form';
 import ButtonContainer from '../../components/ButtonContainer';
+import { Props } from './types';
+import { changePassword } from '../../utils/user';
 
-const Signup: FC = () => {
+const ChangePass: FC<Props> = ({ ...props }) => {
 	const { setWarn } = useWarn();
-	const { setLoggedIn } = useUser();
 
 	const formik = useFormik({
 		initialValues,
 		onSubmit: async values => {
-			const res = await signUp(values);
+			const res = await changePassword(values as TUserPass);
 
 			if (res.status !== 200) {
 				setWarn(res.data.reason);
 				return;
 			}
 
-			setLoggedIn(true);
+			setWarn('Password has been changed!');
+			props.returnAction(false);
 		},
 		validateOnChange: false,
 		validateOnBlur: true,
@@ -48,12 +48,15 @@ const Signup: FC = () => {
 				/>
 			))}
 			<ButtonContainer>
-				<Button type='submit' content='Submit' disabled={formik.isSubmitting} />
+				<Button type='submit' content='Confirm' disabled={formik.isSubmitting} />
+				<Button
+					type='button'
+					content='Return'
+					onClick={() => props.returnAction(false)}
+				/>
 			</ButtonContainer>
 		</Form>
 	);
 };
 
-Signup.displayName = 'Sign up';
-
-export default Signup;
+export default ChangePass;
