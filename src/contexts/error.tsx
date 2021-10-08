@@ -1,11 +1,11 @@
-import React, { FC, useState } from 'react';
+import React, { FC, useContext, useState } from 'react';
 
 type TErrorContext = {
 	error: string;
 	setError: React.Dispatch<string>;
 };
 
-const ErrorContext = React.createContext<TErrorContext>({
+export const ErrorContext = React.createContext<TErrorContext>({
 	error: '',
 	setError: () => {},
 });
@@ -19,4 +19,7 @@ export const ErrorProvider: FC = ({ children }) => {
 		</ErrorContext.Provider>
 	);
 };
-export default ErrorContext;
+
+const useError = () => useContext(ErrorContext);
+
+export default useError;

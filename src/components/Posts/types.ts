@@ -1,8 +1,8 @@
-export type TopicTypes = {
+export type PostsTypes = {
 	id: number;
 	title: string;
 };
 
 export type Props = {
-	data: TopicTypes[];
+	data: PostsTypes[];
 };

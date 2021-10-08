@@ -1,58 +1,30 @@
 import React, { FC, useState } from 'react';
-import { Switch, Route } from 'react-router-dom';
-import styled from 'styled-components';
-import Button from '../../components/Button';
-import { TopicItem } from '../../components/TopicItem';
-import { TopicTypes } from '../../components/TopicItem/types';
-import { BORDER } from '../../constants';
+import {
+	Switch,
+	Route,
+	useRouteMatch,
+	BrowserRouter as Router,
+} from 'react-router-dom';
+import Comments from '../../components/Comments';
+import { Posts } from '../../components/Posts';
+import { PostsTypes } from '../../components/Posts/types';
 import { Wrapper } from '../../ui/wrapper';
-import { topicMockData } from './mock';
-
-export const Header = styled.div`
-	width: 100%;
-	border-bottom: ${BORDER};
-	padding-bottom: 10px;
-	display: flex;
-
-	span {
-		display: block;
-	}
-
-	.header__topic {
-		width: 80%;
-	}
-`;
+import { postsMockData } from './mock';
 
 const Forum: FC = () => {
-	const [topic] = useState<TopicTypes[]>(topicMockData);
-
-	const handleClick = () => {
-		console.log('create new topic');
-	};
-
-	const Topics = () => (
-		<Switch>
-			<Route path='/forum'>
-				<TopicItem data={topic} />
-			</Route>
-			<Route path='/forum/:number'>
-				<TopicItem data={topic} />
-			</Route>
-		</Switch>
-	);
+	const [postsData] = useState<PostsTypes[]>(postsMockData);
+	const match = useRouteMatch();
 
 	return (
 		<Wrapper alignItems='flex-start'>
-			<Button content='New topic' onClick={handleClick} />
-			{!!topic.length && (
-				<>
-					<Header>
-						<span className='header__topic'>Topic</span>
-						<span>Replies</span>
-					</Header>
-					<Topics />
-				</>
-			)}
+			<Router>
+				<Switch>
+					<Route path={`${match.path}/:id`}>
+						<Comments />
+					</Route>
+					<Route path={match.path} render={() => <Posts data={postsData} />} />
+				</Switch>
+			</Router>
 		</Wrapper>
 	);
 };

@@ -1,77 +1,34 @@
-import React, { FC, useContext } from 'react';
+import React, { FC } from 'react';
 import { useFormik } from 'formik';
-import axiosWrap from '../../utils/axios';
-import { TInitialValues, TInput } from '../../utils/types';
-import ErrorContext from '../../contexts/error';
-import {
-	isValidLength,
-	isEqual,
-	isEmail,
-	isEmpty,
-	isLogin,
-	isPassword,
-	isPhone,
-} from '../../utils/validators';
+import { TInput } from '../../utils/types';
 import InputGroup from '../../components/InputGroup';
 import Button from '../../components/Button';
 import Form from '../../components/Form';
 import { initialValues, inputs } from './constants';
+import { signUp } from '../../utils/user';
+import useError from '../../contexts/error';
+import validate from './validation';
+import useUser from '../../contexts/user';
 
 const Signup: FC = () => {
-	const { setError } = useContext(ErrorContext);
+	const { setError } = useError();
+	const { setLoggedIn } = useUser();
 
 	const formik = useFormik({
 		initialValues,
 		onSubmit: async values => {
-			const res = await axiosWrap({
-				method: 'POST',
-				url: '/auth/signup',
-				data: values,
-			});
-			if (res.status !== 200) setError(res.data.reason);
+			const res = await signUp(values);
+
+			if (res.status !== 200) {
+				setError(res.data.reason);
+				return;
+			}
+
+			setLoggedIn(true);
 		},
 		validateOnChange: false,
 		validateOnBlur: true,
-		validate: values => {
-			const errors: TInitialValues = {};
-
-			Object.keys(values).forEach(key => {
-				if (isEmpty(values[key])) {
-					errors[key] = 'Required';
-				}
-			});
-
-			if (!isEmail(values.email)) {
-				errors.email = 'Invalid e-mail';
-			}
-
-			if (!isPhone(values.phone)) {
-				errors.phone = 'Invalid phone number';
-			}
-
-			if (!isValidLength(7)(values.phone)) {
-				errors.phone = 'Phone number is too short';
-			}
-
-			if (!isLogin(values.login)) {
-				errors.login =
-					'Can contain only latin letters, numbers, underscores or hyphens';
-			}
-
-			if (!isValidLength(5)(values.login)) {
-				errors.login = 'Login should be at least 5 characters long';
-			}
-
-			if (!isPassword(values.password)) {
-				errors.password = 'Password must not contain whitespaces';
-			}
-
-			if (!isEqual(values.password)(values.confirm_password)) {
-				errors.confirm_password = 'Wrong confirmation password';
-			}
-
-			return errors;
-		},
+		validate,
 	});
 
 	return (

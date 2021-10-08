@@ -8,7 +8,34 @@ import Signup from '../pages/signup';
 import Start from '../pages/start';
 import { TRoute } from './types';
 
-export const routes: Array<TRoute> = [
+export const loggedInRoutes: Array<TRoute> = [
+	{
+		path: '/',
+		component: Home,
+	},
+	{
+		path: '/start',
+		component: Start,
+	},
+	{
+		path: '/game',
+		component: Game,
+	},
+	{
+		path: '/profile',
+		component: Profile,
+	},
+	{
+		path: '/scoreboard',
+		component: Scoreboard,
+	},
+	{
+		path: '/forum',
+		component: Forum,
+	},
+];
+
+export const loggedOutRoutes: Array<TRoute> = [
 	{
 		path: '/',
 		component: Home,
@@ -20,10 +47,6 @@ export const routes: Array<TRoute> = [
 	{
 		path: '/signin',
 		component: Signin,
-	},
-	{
-		path: '/profile',
-		component: Profile,
 	},
 	{
 		path: '/start',

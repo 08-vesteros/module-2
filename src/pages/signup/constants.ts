@@ -1,4 +1,4 @@
-import { TInitialValues, TInput } from '../../utils/types';
+import { TFieldValues, TInput } from '../../utils/types';
 
 export const inputs: Array<TInput> = [
 	{
@@ -38,7 +38,7 @@ export const inputs: Array<TInput> = [
 	},
 ];
 
-export const initialValues: TInitialValues = {
+export const initialValues: TFieldValues = {
 	first_name: '',
 	second_name: '',
 	email: '',
