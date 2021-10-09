@@ -1,1 +1,1 @@
-web: npm run start-prod
+web: npm install --no-optional && npm run start-prod
