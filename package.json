@@ -7,8 +7,7 @@
 		"start": "webpack serve --mode development --port 3001",
 		"build": "webpack --mode production",
 		"serve": "node ./server",
-		"start-prod": "npm run build && npm run serve",
-		"heroku-postbuild": "npm install --no-optional"
+		"start-prod": "npm run build && npm run serve"
 	},
 	"husky": {
 		"hooks": {
