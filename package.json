@@ -8,7 +8,7 @@
 		"build": "webpack --mode production",
 		"serve": "node ./server",
 		"start-prod": "npm run build && npm run serve",
-		"heroku-postbuild": "npm install"
+		"heroku-postbuild": "npm install --no-optional"
 	},
 	"husky": {
 		"hooks": {
@@ -50,12 +50,12 @@
 		"eslint-plugin-react": "^7.25.2",
 		"eslint-plugin-react-hooks": "^4.2.0",
 		"html-webpack-plugin": "^5.3.2",
-		"husky": "^4.3.8",
 		"lint-staged": "^11.1.2",
 		"path": "^0.12.7",
 		"prettier": "^2.4.1",
 		"ts-loader": "^9.2.5",
 		"typescript": "^4.4.3",
+		"webpack": "^5.58.1",
 		"webpack-cli": "^4.8.0",
 		"webpack-dev-server": "^4.2.1"
 	},
@@ -73,7 +73,9 @@
 		"redux": "^4.1.1",
 		"redux-thunk": "^2.3.0",
 		"reselect": "^4.0.0",
-		"styled-components": "^5.3.1",
-		"webpack": "^5.58.1"
+		"styled-components": "^5.3.1"
+	},
+	"optionalDependencies": {
+		"husky": "^4.3.8"
 	}
 }
