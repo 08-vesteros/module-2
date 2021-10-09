@@ -5,7 +5,10 @@
 	"main": "index.js",
 	"scripts": {
 		"start": "webpack serve --mode development --port 3001",
-		"build": "webpack --mode production"
+		"build": "webpack --mode production",
+		"serve": "node ./server",
+		"start-prod": "npm run build && npm run serve",
+		"heroku-postbuild": "npm install && npm run start-prod"
 	},
 	"husky": {
 		"hooks": {
@@ -62,6 +65,7 @@
 		"@types/react-dom": "^17.0.9",
 		"@types/react-router-dom": "^5.1.9",
 		"axios": "^0.21.4",
+		"express": "^4.17.1",
 		"formik": "^2.2.9",
 		"react": "^17.0.2",
 		"react-dom": "^17.0.2",

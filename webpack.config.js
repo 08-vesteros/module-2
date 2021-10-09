@@ -10,7 +10,16 @@ module.exports = {
 	},
 	output: {
 		path: path.join(__dirname, '/dist'),
-		filename: 'bundle.js',
+		filename: '[name].bundle.js',
+	},
+	performance: {
+		hints: false,
+	},
+	optimization: {
+		splitChunks: {
+			minSize: 10000,
+			maxSize: 250000,
+		},
 	},
 	resolve: {
 		extensions: ['.tsx', '.ts', '.js'],

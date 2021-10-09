@@ -89,4 +89,6 @@ const Profile: FC = () => {
 	);
 };
 
+Profile.displayName = 'Profile';
+
 export default Profile;
