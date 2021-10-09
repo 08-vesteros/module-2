@@ -7,7 +7,7 @@
 		"start-dev": "webpack serve --mode development --port 3001",
 		"build": "webpack --mode production",
 		"serve": "node server",
-		"start": "npm install && npm run build && npm run serve"
+		"start": "npm install --dev && npm run build && npm run serve"
 	},
 	"husky": {
 		"hooks": {
