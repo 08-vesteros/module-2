@@ -2,11 +2,11 @@
 	"name": "module-2",
 	"version": "1.0.0",
 	"description": "",
-	"main": "index.ts",
+	"main": "index.js",
 	"scripts": {
 		"start-dev": "webpack serve --mode development --port 3001",
 		"build": "webpack --mode production",
-		"serve": "node ./server",
+		"serve": "node server",
 		"start": "npm install && npm run build && npm run serve"
 	},
 	"husky": {
