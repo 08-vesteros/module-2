@@ -11,6 +11,9 @@ import { TRoute } from './modules/Header/types';
 import Header from './modules/Header';
 import { loggedInRoutes, loggedOutRoutes } from './routes';
 import useUser from './contexts/user';
+// import { startServiceWorker } from './startServiceWorker';
+
+// startServiceWorker();
 
 const App = () => {
 	const { isLoggedIn, isLoading, getAndSetUser } = useUser();

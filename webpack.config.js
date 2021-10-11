@@ -1,5 +1,7 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
 
 module.exports = {
 	entry: {
@@ -32,6 +34,13 @@ module.exports = {
 	plugins: [
 		new HtmlWebpackPlugin({
 			template: './public/index.html',
+		}),
+		new WorkboxWebpackPlugin.InjectManifest({
+			swSrc: './src/src-sw.js',
+			swDest: 'sw.js',
+		}),
+		new CopyPlugin({
+			patterns: [{ from: './src/manifest.json', to: '' }],
 		}),
 	],
 };

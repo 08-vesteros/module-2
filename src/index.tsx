@@ -3,6 +3,7 @@ import ReactDOM from 'react-dom';
 import { UserProvider } from './contexts/user';
 import App from './App';
 import GlobalStyles from './styles/global';
+import { registerServiceWorker } from './serviceWorkerRegistration';
 
 ReactDOM.render(
 	<UserProvider>
@@ -11,3 +12,5 @@ ReactDOM.render(
 	</UserProvider>,
 	document.getElementById('root')
 );
+
+registerServiceWorker();
