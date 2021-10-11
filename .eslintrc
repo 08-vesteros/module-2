@@ -4,7 +4,12 @@
 		"es2021": true,
 		"jest/globals": true
 	},
-	"extends": ["plugin:react/recommended", "airbnb", "prettier", "plugin:jest/recommended"],
+	"extends": [
+		"plugin:react/recommended",
+		"airbnb",
+		"prettier",
+		"plugin:jest/recommended"
+	],
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
 		"ecmaFeatures": {
@@ -40,7 +45,7 @@
 		"no-unused-vars": "off",
 		"@typescript-eslint/no-unused-vars": ["error"],
 		"camelcase": "off",
-		"import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
+		"import/no-extraneous-dependencies": ["error", { "devDependencies": true }]
 	},
 	"settings": {
 		"import/resolver": {
@@ -48,5 +53,5 @@
 				"extensions": [".js", ".jsx", ".ts", ".tsx"]
 			}
 		}
-	},
+	}
 }
