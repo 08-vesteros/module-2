@@ -1,9 +1,10 @@
 {
 	"env": {
 		"browser": true,
-		"es2021": true
+		"es2021": true,
+		"jest/globals": true
 	},
-	"extends": ["plugin:react/recommended", "airbnb", "prettier"],
+	"extends": ["plugin:react/recommended", "airbnb", "prettier", "plugin:jest/recommended"],
 	"parser": "@typescript-eslint/parser",
 	"parserOptions": {
 		"ecmaFeatures": {
@@ -38,7 +39,8 @@
 		"@typescript-eslint/no-shadow": ["error"],
 		"no-unused-vars": "off",
 		"@typescript-eslint/no-unused-vars": ["error"],
-		"camelcase": "off"
+		"camelcase": "off",
+		"import/no-extraneous-dependencies": ["error", {"devDependencies": true}]
 	},
 	"settings": {
 		"import/resolver": {
@@ -46,5 +48,5 @@
 				"extensions": [".js", ".jsx", ".ts", ".tsx"]
 			}
 		}
-	}
+	},
 }
