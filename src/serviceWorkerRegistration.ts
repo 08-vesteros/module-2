@@ -1,7 +1,5 @@
 import { Workbox } from 'workbox-window';
 
-console.log('asd');
-
 export const registerServiceWorker = () => {
 	//   if ( 'production' !== process.env.NODE_ENV ) {
 	//     return;
