@@ -11,7 +11,7 @@ import { clientsClaim } from 'workbox-core';
 import { ExpirationPlugin } from 'workbox-expiration';
 import { precacheAndRoute } from 'workbox-precaching';
 import { registerRoute } from 'workbox-routing';
-import { StaleWhileRevalidate } from 'workbox-strategies';
+import { NetworkFirst } from 'workbox-strategies';
 import { CacheableResponsePlugin } from 'workbox-cacheable-response';
 
 clientsClaim();
@@ -38,7 +38,7 @@ precacheAndRoute(self.__WB_MANIFEST);
  */
 registerRoute(
 	({ url }) => url.origin === 'https://ya-praktikum.tech',
-	new StaleWhileRevalidate({
+	new NetworkFirst({
 		cacheName: 'ya-praktikum-response',
 		plugins: [
 			new CacheableResponsePlugin({
@@ -53,7 +53,7 @@ registerRoute(
 registerRoute(
 	({ request }) =>
 		request.destination === 'script' || request.destination === 'style',
-	new StaleWhileRevalidate({
+	new NetworkFirst({
 		cacheName: 'static-resources',
 	})
 );
