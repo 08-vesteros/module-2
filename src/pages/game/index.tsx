@@ -1,33 +1,24 @@
 import React, { useEffect, useRef } from 'react';
-import {
-	CANVAS_WIDTH,
-	JUPM_HEIGHT,
-	CANVAS_HEIGHT,
-	GRAVITY,
-	GAME_SPEED,
-} from '../../constants';
+import { CANVAS_WIDTH, CANVAS_HEIGHT, GRAVITY } from '../../constants';
 import { Wrapper } from '../../ui/wrapper';
 import { Canvas } from './styled';
-import { ObstaclesType } from './types';
-import { createDyno } from './utils/create-dyno';
-import { createObstacle } from './utils/create-obstacle';
+import Dino from './utils/dino';
+import Obstacle from './utils/obstacle';
 
 const Game = () => {
 	const canvasRef = useRef<HTMLCanvasElement>(null);
+	let frame = 0;
 	const pos = { x: 0, y: 200 };
-	const obstacles: ObstaclesType[] = [];
-	obstacles[0] = {
-		x: CANVAS_WIDTH * 2,
-		y: 220,
-		w: 50,
-		h: 80,
-	};
+	const obstacles: Obstacle[] = [];
+	const dino = new Dino(pos.x, pos.y, 100, 100);
 
-	const jump = () => {
-		// TOTO smooth jumping up
-		if (pos.y === 200) {
-			pos.y = JUPM_HEIGHT;
-		}
+	obstacles.push(new Obstacle());
+
+	const jump = (e: React.KeyboardEvent) => {
+		e.preventDefault();
+		if ((e.code !== 'Space' && e.code !== 'ArrowUp') || dino.jumpState) return;
+		dino.y -= GRAVITY;
+		dino.jumpState = 'up';
 	};
 
 	useEffect(() => {
@@ -43,38 +34,20 @@ const Game = () => {
 		const render = () => {
 			if (canvas) {
 				context?.clearRect(0, 0, canvas.width, canvas.height);
-				createDyno(context, pos.x, pos.y, 100, 100);
-
-				if (pos.y < 200) {
-					pos.y += GRAVITY;
-				} else {
-					pos.y = 200;
-				}
+				dino.draw(context);
 
 				for (let i = 0; i < obstacles.length; i += 1) {
-					createObstacle(
-						context,
-						obstacles[i].x,
-						obstacles[i].y,
-						obstacles[i].w,
-						obstacles[i].h
-					);
-					obstacles[i].x -= GAME_SPEED;
-					// TODO random show obstacles
-					if (obstacles[i].x === 135) {
-						obstacles.push({
-							x: canvas.width,
-							y: 220,
-							w: 50,
-							h: 80,
-						});
-					}
+					obstacles[i].draw(context);
 				}
 			}
-			requestAnimationFrame(render);
+			frame = requestAnimationFrame(render);
 		};
 		render();
-	}, []);
+
+		return () => {
+			cancelAnimationFrame(frame);
+		};
+	});
 
 	return (
 		<Wrapper>
