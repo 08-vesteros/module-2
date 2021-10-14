@@ -4,8 +4,13 @@ import {
 	GRAVITY,
 	JUMP_POWER,
 	JUPM_HEIGHT,
+	SPRITES_COORDS,
 } from '../../../constants';
 import { JumpDir } from '../types';
+import spritesPath from '../../../img/sprites.png';
+
+const sprites = new Image();
+sprites.src = spritesPath;
 
 export default class Dino {
 	x: number;
@@ -16,11 +21,14 @@ export default class Dino {
 
 	h: number;
 
+	initY: number;
+
 	acceleration: number;
 
 	jumpState: JumpDir;
 
 	constructor(x: number, y: number, w: number, h: number) {
+		this.initY = y;
 		this.x = x;
 		this.y = y;
 		this.w = w;
@@ -28,10 +36,24 @@ export default class Dino {
 		this.acceleration = BASE_ACCELERATION;
 	}
 
-	draw(ctx: CanvasRenderingContext2D) {
+	draw(ctx: CanvasRenderingContext2D, frame: number) {
 		this.jump();
 		ctx.beginPath();
-		ctx.fillRect(this.x, this.y, this.w, this.h);
+		const spritePosX =
+			Math.floor(frame / 7) % 2 === 0
+				? SPRITES_COORDS.DINO_LEFT.x
+				: SPRITES_COORDS.DINO_RIGHT.x;
+		ctx.drawImage(
+			sprites,
+			spritePosX,
+			SPRITES_COORDS.DINO.y,
+			this.w,
+			this.h,
+			this.x,
+			this.y,
+			this.w,
+			this.h
+		);
 		ctx.closePath();
 	}
 
@@ -47,9 +69,9 @@ export default class Dino {
 				break;
 
 			case 'down':
-				if (this.y >= 200 - (GRAVITY + this.acceleration)) {
+				if (this.y >= this.initY - (GRAVITY + this.acceleration)) {
 					this.jumpState = undefined;
-					this.y = 200;
+					this.y = this.initY;
 					this.acceleration = BASE_ACCELERATION;
 					break;
 				}

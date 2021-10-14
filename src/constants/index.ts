@@ -12,9 +12,23 @@ export const BORDER = `solid 1px ${LIGHT_GREY}`;
 // game settings
 export const CANVAS_WIDTH = 600;
 export const CANVAS_HEIGHT = 150;
-export const GRAVITY = 4;
-export const JUMP_POWER = 10;
+export const GRAVITY = 3;
+export const JUMP_POWER = 5;
 export const JUPM_HEIGHT = 20;
 export const GAME_SPEED = 12;
 export const BASE_ACCELERATION = 12;
-export const DELTA_ACCELERATION = 0.25;
+export const DELTA_ACCELERATION = 0.5;
+export const SPRITES_COORDS = {
+	DINO: {
+		x: 1338,
+		y: 2,
+	},
+	DINO_LEFT: {
+		x: 1602,
+		y: 2,
+	},
+	DINO_RIGHT: {
+		x: 1514,
+		y: 2,
+	},
+};
