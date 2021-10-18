@@ -1,5 +1,4 @@
 import Forum from '../pages/forum';
-import Game from '../pages/game';
 import Home from '../pages/home';
 import Profile from '../pages/profile';
 import Scoreboard from '../pages/scoreboard';
@@ -16,10 +15,6 @@ export const loggedInRoutes: Array<TRoute> = [
 	{
 		path: '/start',
 		component: Start,
-	},
-	{
-		path: '/game',
-		component: Game,
 	},
 	{
 		path: '/profile',
@@ -51,10 +46,6 @@ export const loggedOutRoutes: Array<TRoute> = [
 	{
 		path: '/start',
 		component: Start,
-	},
-	{
-		path: '/game',
-		component: Game,
 	},
 	{
 		path: '/scoreboard',

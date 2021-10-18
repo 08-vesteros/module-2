@@ -22,6 +22,6 @@ const Start = () => {
 	);
 };
 
-Start.displayName = 'Start';
+Start.displayName = 'Play';
 
 export default Start;

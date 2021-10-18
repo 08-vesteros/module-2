@@ -1,21 +1,23 @@
 import { useFormik } from 'formik';
 import React, { FC, useState } from 'react';
-import useUser from '../../contexts/user';
+import { useDispatch } from 'react-redux';
 import { inputs } from './constants';
 import Button from '../../components/Button';
 import InputGroup from '../../components/InputGroup';
 import { TInput, TUserInfo } from '../../utils/types';
-import useWarn from '../../contexts/warn';
 import { updateUser } from '../../utils/user';
 import validate from './validation';
 import Form from '../../components/Form';
 import ButtonContainer from '../../components/ButtonContainer';
 import ChangePass from '../../modules/ChangePass';
 import Avatar from '../../modules/Avatar';
+import useTypedSelector from '../../store/selectors/typedSelector';
+import { setUserSuccess } from '../../store/reducers/user';
+import { setWarn } from '../../store/reducers/warn';
 
 const Profile: FC = () => {
-	const { setWarn } = useWarn();
-	const { user, setUser } = useUser();
+	const { item: user } = useTypedSelector(state => state.user);
+	const dispatch = useDispatch();
 	const userData = user as TUserInfo;
 	const [isEdit, setEdit] = useState(false);
 	const [isChangePass, setChangePass] = useState(false);
@@ -26,13 +28,13 @@ const Profile: FC = () => {
 			const res = await updateUser(values);
 
 			if (res.status !== 200) {
-				setWarn(res.data.reason);
+				dispatch(setWarn(res.data.reason));
 				return;
 			}
 
-			setUser(res.data);
+			dispatch(setUserSuccess(res.data));
 			setEdit(false);
-			setWarn("Profile's updated!");
+			dispatch(setWarn("Profile's updated!"));
 		},
 		validateOnChange: false,
 		validateOnBlur: true,

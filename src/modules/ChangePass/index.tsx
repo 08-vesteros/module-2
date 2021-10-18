@@ -1,18 +1,19 @@
 import { useFormik } from 'formik';
 import React, { FC } from 'react';
+import { useDispatch } from 'react-redux';
 import { initialValues, inputs } from './constants';
 import Button from '../../components/Button';
 import InputGroup from '../../components/InputGroup';
 import { TInput, TUserPass } from '../../utils/types';
-import useWarn from '../../contexts/warn';
 import validate from './validation';
 import Form from '../../components/Form';
 import ButtonContainer from '../../components/ButtonContainer';
 import { Props } from './types';
 import { changePassword } from '../../utils/user';
+import { setWarn } from '../../store/reducers/warn';
 
 const ChangePass: FC<Props> = ({ ...props }) => {
-	const { setWarn } = useWarn();
+	const dispatch = useDispatch();
 
 	const formik = useFormik({
 		initialValues,
@@ -20,11 +21,11 @@ const ChangePass: FC<Props> = ({ ...props }) => {
 			const res = await changePassword(values as TUserPass);
 
 			if (res.status !== 200) {
-				setWarn(res.data.reason);
+				dispatch(setWarn(res.data.reason));
 				return;
 			}
 
-			setWarn('Password has been changed!');
+			dispatch(setWarn('Password has been changed!'));
 			props.returnAction(false);
 		},
 		validateOnChange: false,

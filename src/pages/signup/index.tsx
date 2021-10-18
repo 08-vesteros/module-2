@@ -1,4 +1,5 @@
 import React, { FC } from 'react';
+import { useDispatch } from 'react-redux';
 import { useFormik } from 'formik';
 import { TInput } from '../../utils/types';
 import InputGroup from '../../components/InputGroup';
@@ -6,14 +7,13 @@ import Button from '../../components/Button';
 import Form from '../../components/Form';
 import { initialValues, inputs } from './constants';
 import { signUp } from '../../utils/user';
-import useWarn from '../../contexts/warn';
 import validate from './validation';
-import useUser from '../../contexts/user';
 import ButtonContainer from '../../components/ButtonContainer';
+import { fetchUser } from '../../store/dispatchers/user';
+import { setWarn } from '../../store/reducers/warn';
 
 const Signup: FC = () => {
-	const { setWarn } = useWarn();
-	const { setLoggedIn } = useUser();
+	const dispatch = useDispatch();
 
 	const formik = useFormik({
 		initialValues,
@@ -21,11 +21,11 @@ const Signup: FC = () => {
 			const res = await signUp(values);
 
 			if (res.status !== 200) {
-				setWarn(res.data.reason);
+				dispatch(setWarn(res.data.reason));
 				return;
 			}
 
-			setLoggedIn(true);
+			dispatch(fetchUser());
 		},
 		validateOnChange: false,
 		validateOnBlur: true,

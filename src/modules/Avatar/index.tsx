@@ -1,14 +1,16 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { PRAKTIKUM_RESOURCES_URL } from '../../constants';
 import { AvatarWrapper } from './styled';
-import useUser from '../../contexts/user';
 import TRex from '../../img/t-rex.png';
 import { changeAvatar } from '../../utils/user';
-import useWarn from '../../contexts/warn';
+import useTypedSelector from '../../store/selectors/typedSelector';
+import { setUserSuccess } from '../../store/reducers/user';
+import { setWarn } from '../../store/reducers/warn';
 
 const Avatar = () => {
-	const { setWarn } = useWarn();
-	const { user, setUser } = useUser();
+	const dispatch = useDispatch();
+	const { item: user } = useTypedSelector(state => state.user);
 	const uploadAvatar = async (e: React.ChangeEvent<HTMLInputElement>) => {
 		const { files } = e.target;
 		if (!files?.length) return;
@@ -18,11 +20,11 @@ const Avatar = () => {
 		const res = await changeAvatar(formData);
 
 		if (res.status !== 200) {
-			setWarn(res.data.reason);
+			dispatch(setWarn(res.data.reason));
 			return;
 		}
 
-		setUser(res.data);
+		dispatch(setUserSuccess(res.data));
 	};
 
 	return (
