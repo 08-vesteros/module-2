@@ -1,5 +1,10 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin');
+
+const prod = process.env.NODE_ENV === 'production';
+console.log(prod);
 
 module.exports = {
 	entry: {
@@ -9,7 +14,8 @@ module.exports = {
 		historyApiFallback: true,
 	},
 	output: {
-		path: path.join(__dirname, '/dist'),
+		path: path.join(__dirname, 'dist'),
+		publicPath: '/',
 		filename: 'bundle.js',
 	},
 	resolve: {
@@ -32,6 +38,15 @@ module.exports = {
 	plugins: [
 		new HtmlWebpackPlugin({
 			template: './public/index.html',
+		}),
+		new WorkboxWebpackPlugin.InjectManifest({
+			swSrc: './src/src-sw.js',
+			swDest: 'sw.js',
+			mode: 'production',
+			maximumFileSizeToCacheInBytes: 20 * 1024 * 1024,
+		}),
+		new CopyPlugin({
+			patterns: [{ from: './src/manifest.json', to: '' }],
 		}),
 	],
 };
