@@ -21,6 +21,6 @@
 		},
 		"typeRoots": ["typings/**/*.d.ts", "node_modules/@types"]
 	},
-	"include": ["src", "typings/**/*.d.ts", "./node_modules/@types", "sw-del.js"],
-	"exclude": ["**/*.js"]
+	"include": ["src", "typings/**/*.d.ts", "./node_modules/@types"],
+	"exclude": ["**/*.js", "node_modules"]
 }
