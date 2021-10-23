@@ -3,6 +3,9 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
+const prod = process.env.NODE_ENV === 'production';
+console.log(prod);
+
 module.exports = {
 	entry: {
 		main: './src/index.tsx',
@@ -39,6 +42,8 @@ module.exports = {
 		new WorkboxWebpackPlugin.InjectManifest({
 			swSrc: './src/src-sw.js',
 			swDest: 'sw.js',
+			mode: 'production',
+			maximumFileSizeToCacheInBytes: 20 * 1024 * 1024,
 		}),
 		new CopyPlugin({
 			patterns: [{ from: './src/manifest.json', to: '' }],

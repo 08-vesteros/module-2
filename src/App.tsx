@@ -5,23 +5,29 @@ import {
 	Route,
 	Redirect,
 } from 'react-router-dom';
+import { useDispatch } from 'react-redux';
 import WarnModal from './components/Warn';
-import { WarnProvider } from './contexts/warn';
 import { TRoute } from './modules/Header/types';
 import Header from './modules/Header';
 import { loggedInRoutes, loggedOutRoutes } from './routes';
-import useUser from './contexts/user';
+import useTypedSelector from './store/selectors/typedSelector';
+import { LoadStatus } from './store/types';
+import { fetchUser } from './store/dispatchers/user';
+import Game from './pages/game';
 import { checkOnline } from './utils/checkOnline';
 
 const App = () => {
-	const { isLoggedIn, isLoading, getAndSetUser } = useUser();
+	const { status } = useTypedSelector(state => state.user);
+	const dispatch = useDispatch();
+	const isLoading = status === LoadStatus.PENDING;
 	const isOnline = checkOnline();
 
 	useEffect(() => {
-		getAndSetUser();
-	}, [isLoggedIn]);
+		dispatch(fetchUser());
+	}, [LoadStatus.PENDING]);
 
-	const routes = isLoggedIn ? loggedInRoutes : loggedOutRoutes;
+	const routes =
+		status === LoadStatus.SUCCESS ? loggedInRoutes : loggedOutRoutes;
 
 	return (
 		<div className='container'>
@@ -31,17 +37,16 @@ const App = () => {
 				<Router>
 					<Header routes={routes} />
 
-					<WarnProvider>
-						<main>
-							<Switch>
-								{routes.map((route: TRoute) => (
-									<Route exact {...route} key={route.path} />
-								))}
-								<Route render={() => <Redirect to='/' />} />
-							</Switch>
-						</main>
-						<WarnModal />
-					</WarnProvider>
+					<main>
+						<Switch>
+							{routes.map((route: TRoute) => (
+								<Route exact {...route} key={route.path} />
+							))}
+							<Route exact path='/game' component={Game} />
+							<Route render={() => <Redirect to='/' />} />
+						</Switch>
+					</main>
+					<WarnModal />
 				</Router>
 			)}
 		</div>

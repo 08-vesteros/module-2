@@ -1,14 +1,17 @@
 import React, { useCallback, MouseEvent } from 'react';
+import { useDispatch } from 'react-redux';
 import { WarnWrapper } from './styled';
 import Button from '../Button';
-import useWarn from '../../contexts/warn';
+import { setWarn } from '../../store/reducers/warn';
+import useTypedSelector from '../../store/selectors/typedSelector';
 
 const WarnModal = () => {
-	const { warn, setWarn } = useWarn();
+	const dispatch = useDispatch();
+	const { item: warn } = useTypedSelector(state => state.warn);
 	const hideWarn = useCallback(
 		(e: MouseEvent<HTMLDivElement | HTMLButtonElement>) => {
 			if (e.currentTarget !== e.target) return;
-			setWarn('');
+			dispatch(setWarn(''));
 		},
 		[warn]
 	);

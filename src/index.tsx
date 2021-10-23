@@ -1,15 +1,16 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import { UserProvider } from './contexts/user';
+import { Provider } from 'react-redux';
 import App from './App';
 import GlobalStyles from './styles/global';
 import { registerServiceWorker } from './serviceWorkerRegistration';
+import store from './store';
 
 ReactDOM.render(
-	<UserProvider>
+	<Provider store={store}>
 		<GlobalStyles />
 		<App />
-	</UserProvider>,
+	</Provider>,
 	document.getElementById('root')
 );
 
