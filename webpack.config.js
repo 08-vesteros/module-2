@@ -3,9 +3,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const WorkboxWebpackPlugin = require('workbox-webpack-plugin');
 const CopyPlugin = require('copy-webpack-plugin');
 
-const prod = process.env.NODE_ENV === 'production';
-console.log(prod);
-
 module.exports = {
 	entry: {
 		main: './src/index.tsx',
@@ -32,6 +29,10 @@ module.exports = {
 				test: /\.(png|svg|jpg|jpeg|gif)$/i,
 				type: 'asset/resource',
 				exclude: /node_modules/,
+			},
+			{
+				test: /\.(ogg|mp3)$/,
+				loader: 'file-loader',
 			},
 		],
 	},
