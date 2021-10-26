@@ -14,9 +14,17 @@ module.exports = {
 		historyApiFallback: true,
 	},
 	output: {
-		path: path.join(__dirname, 'dist'),
-		publicPath: '/',
-		filename: 'bundle.js',
+		path: path.join(__dirname, '/dist'),
+		filename: '[name].bundle.js',
+	},
+	performance: {
+		hints: false,
+	},
+	optimization: {
+		splitChunks: {
+			minSize: 10000,
+			maxSize: 250000,
+		},
 	},
 	resolve: {
 		extensions: ['.tsx', '.ts', '.js'],

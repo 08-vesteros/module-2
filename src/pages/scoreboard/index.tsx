@@ -27,4 +27,6 @@ const Scoreboard: FC = () => {
 	);
 };
 
+Scoreboard.displayName = 'Scoreboard';
+
 export default Scoreboard;
