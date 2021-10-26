@@ -14,11 +14,13 @@ import useTypedSelector from './store/selectors/typedSelector';
 import { LoadStatus } from './store/types';
 import { fetchUser } from './store/dispatchers/user';
 import Game from './pages/game';
+import { checkOnline } from './utils/checkOnline';
 
 const App = () => {
 	const { status } = useTypedSelector(state => state.user);
 	const dispatch = useDispatch();
 	const isLoading = status === LoadStatus.PENDING;
+	const isOnline = checkOnline();
 
 	useEffect(() => {
 		dispatch(fetchUser());
@@ -29,7 +31,7 @@ const App = () => {
 
 	return (
 		<div className='container'>
-			{isLoading ? (
+			{isOnline && isLoading ? (
 				<p>Loading...</p>
 			) : (
 				<Router>
