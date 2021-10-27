@@ -29,4 +29,6 @@ const Forum: FC = () => {
 	);
 };
 
+Forum.displayName = 'Forum';
+
 export default Forum;

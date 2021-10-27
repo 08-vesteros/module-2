@@ -1,5 +1,4 @@
 import Forum from '../pages/forum';
-import Home from '../pages/home';
 import Profile from '../pages/profile';
 import Scoreboard from '../pages/scoreboard';
 import Signin from '../pages/signin';
@@ -10,10 +9,6 @@ import { TRoute } from './types';
 export const loggedInRoutes: Array<TRoute> = [
 	{
 		path: '/',
-		component: Home,
-	},
-	{
-		path: '/start',
 		component: Start,
 	},
 	{
@@ -33,7 +28,7 @@ export const loggedInRoutes: Array<TRoute> = [
 export const loggedOutRoutes: Array<TRoute> = [
 	{
 		path: '/',
-		component: Home,
+		component: Start,
 	},
 	{
 		path: '/signup',
@@ -42,10 +37,6 @@ export const loggedOutRoutes: Array<TRoute> = [
 	{
 		path: '/signin',
 		component: Signin,
-	},
-	{
-		path: '/start',
-		component: Start,
 	},
 	{
 		path: '/scoreboard',
