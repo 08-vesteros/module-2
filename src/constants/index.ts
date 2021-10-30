@@ -8,6 +8,7 @@ export const RED_COLOR = '#ff0000';
 export const INPUT_BORDER_COLOR = '#2f2f2f';
 export const LIGHT_GREY = '#e6e6e6';
 export const BORDER = `solid 1px ${LIGHT_GREY}`;
+export const TEAM_NAME = 'vesteros';
 
 // game settings
 export const CANVAS_WIDTH = 600;
