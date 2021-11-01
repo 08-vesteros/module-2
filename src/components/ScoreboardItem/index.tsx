@@ -3,13 +3,13 @@ import { ListItem } from './styled';
 import { ScoreboardItemProps } from './types';
 
 const ScoreboardItem = ({ userData, position }: ScoreboardItemProps) => {
-	const { login, score } = userData;
+	const { name, vesterosScore } = userData.data;
 
 	return (
 		<ListItem>
 			<span className='listItem__position'>{position}</span>
-			<span className='listItem__name'>{login}</span>
-			<span className='listItem__score'>{score}</span>
+			<span className='listItem__name'>{name}</span>
+			<span className='listItem__score'>{vesterosScore}</span>
 		</ListItem>
 	);
 };

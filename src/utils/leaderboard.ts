@@ -9,13 +9,6 @@ const getLeaderBoard = (values: any) =>
 		data: values,
 	});
 
-// const getLeaderBoard = (values: any) =>
-// 	axiosWrap({
-// 		method: Methods.POST,
-// 		url: `/leaderboard/all`,
-// 		data: values,
-// 	});
-
 const addUserLeaderBoard = (values: any) =>
 	axiosWrap({
 		method: Methods.POST,
