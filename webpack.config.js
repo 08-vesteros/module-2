@@ -48,12 +48,12 @@ module.exports = {
 		new HtmlWebpackPlugin({
 			template: './public/index.html',
 		}),
-		new WorkboxWebpackPlugin.InjectManifest({
-			swSrc: './src/src-sw.js',
-			swDest: 'sw.js',
-			mode: 'production',
-			maximumFileSizeToCacheInBytes: 20 * 1024 * 1024,
-		}),
+		// new WorkboxWebpackPlugin.InjectManifest({
+		// 	swSrc: './src/src-sw.js',
+		// 	swDest: 'sw.js',
+		// 	mode: 'production',
+		// 	maximumFileSizeToCacheInBytes: 20 * 1024 * 1024,
+		// }),
 		new CopyPlugin({
 			patterns: [{ from: './src/manifest.json', to: '' }],
 		}),
