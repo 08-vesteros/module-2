@@ -15,7 +15,7 @@ const enum actions {
 	SET_USER = 'SET_USER',
 }
 
-const defaultState: UserState = {
+export const defaultState: UserState = {
 	status: LoadStatus.PENDING,
 	item: null,
 };

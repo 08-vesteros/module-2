@@ -1,10 +1,5 @@
 import React, { useEffect } from 'react';
-import {
-	BrowserRouter as Router,
-	Switch,
-	Route,
-	Redirect,
-} from 'react-router-dom';
+import { Switch, Route, Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import WarnModal from './components/Warn';
 import { TRoute } from './modules/Header/types';
@@ -34,7 +29,7 @@ const App = () => {
 			{isOnline && isLoading ? (
 				<p>Loading...</p>
 			) : (
-				<Router>
+				<>
 					<Header routes={routes} />
 
 					<main>
@@ -47,7 +42,7 @@ const App = () => {
 						</Switch>
 					</main>
 					<WarnModal />
-				</Router>
+				</>
 			)}
 		</div>
 	);
