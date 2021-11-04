@@ -4,11 +4,10 @@ import { useDispatch } from 'react-redux';
 import WarnModal from './components/Warn';
 import { TRoute } from './modules/Header/types';
 import Header from './modules/Header';
-import { loggedInRoutes, loggedOutRoutes } from './routes';
+import { loggedInMenu, loggedOutMenu, routes } from './routes';
 import useTypedSelector from './store/selectors/typedSelector';
 import { LoadStatus } from './store/types';
 import { fetchUser } from './store/dispatchers/user';
-import Game from './pages/game';
 import { checkOnline } from './utils/checkOnline';
 
 const App = () => {
@@ -21,8 +20,7 @@ const App = () => {
 		dispatch(fetchUser());
 	}, [LoadStatus.PENDING]);
 
-	const routes =
-		status === LoadStatus.SUCCESS ? loggedInRoutes : loggedOutRoutes;
+	const menu = status === LoadStatus.SUCCESS ? loggedInMenu : loggedOutMenu;
 
 	return (
 		<div className='container'>
@@ -30,14 +28,13 @@ const App = () => {
 				<p>Loading...</p>
 			) : (
 				<>
-					<Header routes={routes} />
+					<Header routes={menu} />
 
 					<main>
 						<Switch>
 							{routes.map((route: TRoute) => (
 								<Route exact {...route} key={route.path} />
 							))}
-							<Route exact path='/game' component={Game} />
 							<Route render={() => <Redirect to='/' />} />
 						</Switch>
 					</main>
