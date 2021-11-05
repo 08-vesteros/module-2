@@ -4,11 +4,10 @@
 	"description": "",
 	"main": "index.ts",
 	"scripts": {
-		"start": "webpack serve --mode development --port 3001",
-		"start:prod": "node dist/server",
+		"start": "node dist/server",
 		"build": "webpack --mode production",
-		"build:dev": "webpack --mode development",
-		"serve": "node server",
+		"build:dev": "webpack --watch --mode development",
+		"start:dev": "nodemon dist/server",
 		"test": "jest"
 	},
 	"husky": {
@@ -66,6 +65,7 @@
 		"jest": "^27.2.5",
 		"jest-styled-components": "^7.0.5",
 		"lint-staged": "^11.1.2",
+		"nodemon": "^2.0.14",
 		"null-loader": "^4.0.1",
 		"path": "^0.12.7",
 		"prettier": "^2.4.1",

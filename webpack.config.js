@@ -47,6 +47,11 @@ module.exports = [
 				patterns: [{ from: './src/manifest.json', to: '' }],
 			}),
 		],
+		watchOptions: {
+			aggregateTimeout: 500,
+			poll: 1000,
+			ignored: /node_modules/,
+		},
 	},
 	{
 		target: 'node',
