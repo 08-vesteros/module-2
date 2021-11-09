@@ -12,6 +12,7 @@ const Forum: FC = () => {
 
 	return (
 		<Wrapper alignItems='flex-start'>
+			{/* поправить при добавлении серверной авторизации */}
 			<BrowserRouter>
 				<Switch>
 					<Route path={`${match.path}/:id`}>

@@ -7,7 +7,7 @@
 		"start": "node dist/server",
 		"build": "webpack --mode production",
 		"watch:dev": "webpack --watch --mode development",
-		"start:dev": "nodemon dist/server",
+		"start:dev": "nodemon --delay 2 dist/server",
 		"test": "jest"
 	},
 	"husky": {

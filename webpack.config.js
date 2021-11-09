@@ -86,7 +86,6 @@ module.exports = [
 		plugins: [
 			new webpack.ProvidePlugin({
 				window: 'global/window',
-				localStorage: path.resolve(path.join(__dirname, '/mock/localStorage.mock')),
 				document: 'global/document',
 				navigator: path.resolve(path.join(__dirname, '/mock/navigator.mock')),
 			}),
