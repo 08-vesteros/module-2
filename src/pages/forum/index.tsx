@@ -1,10 +1,5 @@
 import React, { FC, useState } from 'react';
-import {
-	Switch,
-	Route,
-	useRouteMatch,
-	BrowserRouter as Router,
-} from 'react-router-dom';
+import { Switch, Route, useRouteMatch, BrowserRouter } from 'react-router-dom';
 import Comments from '../../components/Comments';
 import { Posts } from '../../components/Posts';
 import { PostsTypes } from '../../components/Posts/types';
@@ -17,14 +12,15 @@ const Forum: FC = () => {
 
 	return (
 		<Wrapper alignItems='flex-start'>
-			<Router>
+			{/* поправить при добавлении серверной авторизации */}
+			<BrowserRouter>
 				<Switch>
 					<Route path={`${match.path}/:id`}>
 						<Comments />
 					</Route>
 					<Route path={match.path} render={() => <Posts data={postsData} />} />
 				</Switch>
-			</Router>
+			</BrowserRouter>
 		</Wrapper>
 	);
 };
