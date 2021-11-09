@@ -6,7 +6,7 @@
 	"scripts": {
 		"start": "node dist/server",
 		"build": "webpack --mode production",
-		"build:dev": "webpack --watch --mode development",
+		"watch:dev": "webpack --watch --mode development",
 		"start:dev": "nodemon dist/server",
 		"test": "jest"
 	},

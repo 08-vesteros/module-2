@@ -8,6 +8,6 @@ app.use(express.static('dist'));
 app.get('*', serverRenderMiddleware);
 
 app.listen(port, () => {
-	// eslint-disable-next-line
+	// eslint-disable-next-line no-console
 	console.log(`Listening on port ${port}`);
 });

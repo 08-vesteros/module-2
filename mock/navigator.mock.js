@@ -1,4 +1,4 @@
-// eslint-disable-next-line
+// eslint-disable-next-line import/no-mutable-exports
 let nav;
 
 if (typeof navigator !== 'undefined') {
@@ -8,5 +8,5 @@ if (typeof navigator !== 'undefined') {
 		onLine: true,
 	};
 }
-// eslint-disable-next-line
+
 export default nav;

@@ -1,4 +1,4 @@
-// eslint-disable-next-line
+// eslint-disable-next-line import/no-mutable-exports
 let localStorage;
 
 if (
@@ -8,11 +8,9 @@ if (
 	localStorage = window.localStorage;
 } else {
 	localStorage = {
-		// eslint-disable-next-line
 		setItem() {},
-		// eslint-disable-next-line
 		getItem() {},
 	};
 }
-// eslint-disable-next-line
+
 export default localStorage;

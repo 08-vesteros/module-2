@@ -13,9 +13,9 @@ declare global {
 		__INITIAL_STATE__?: RootState;
 	}
 }
-// eslint-disable-next-line
+// eslint-disable-next-line no-underscore-dangle
 const store = getStore(window.__INITIAL_STATE__!);
-// eslint-disable-next-line
+// eslint-disable-next-line no-underscore-dangle
 delete window.__INITIAL_STATE__;
 
 hydrate(
