@@ -1,7 +1,9 @@
 export type ScoreDataProps = {
-	id: number;
-	login: string;
-	score: number;
+	data: {
+		id: number;
+		name: string;
+		vesterosScore: number;
+	};
 };
 
 export type ScoreboardItemProps = {

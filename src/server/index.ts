@@ -1,14 +1,13 @@
-const express = require('express');
-const path = require('path');
+import express from 'express';
+import serverRenderMiddleware from './renderMiddleWare';
 
 const app = express();
 const port = process.env.PORT || 3002;
 
 app.use(express.static('dist'));
-app.get('*', (_req, res) => {
-	res.sendFile(path.join(__dirname, '/dist/index.html'));
-});
+app.get('*', serverRenderMiddleware);
 
 app.listen(port, () => {
+	// eslint-disable-next-line no-console
 	console.log(`Listening on port ${port}`);
 });

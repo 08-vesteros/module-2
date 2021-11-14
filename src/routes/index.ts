@@ -42,8 +42,4 @@ export const loggedOutRoutes: Array<TRoute> = [
 		path: '/scoreboard',
 		component: Scoreboard,
 	},
-	{
-		path: '/forum',
-		component: Forum,
-	},
 ];

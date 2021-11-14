@@ -8,7 +8,7 @@ const enum actions {
 	SET_WARN = 'SET_WARN',
 }
 
-const defaultState: WarnState = {
+export const defaultState: WarnState = {
 	item: '',
 };
 
