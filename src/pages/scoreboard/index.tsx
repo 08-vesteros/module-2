@@ -22,12 +22,13 @@ const Scoreboard: FC = () => {
 			cursor: 0,
 			limit: 10,
 		};
-		getLeaderBoard(options).then(response => {
-			if (response.status === 200) {
-				setUsersScoreData(response.data);
-			}
-			setIsLoading(false);
-		});
+		getLeaderBoard(options)
+			.then(response => {
+				if (response.status === 200) {
+					setUsersScoreData(response.data);
+				}
+			})
+			.finally(() => setIsLoading(false));
 	}, []);
 
 	const handleClick = () => {
