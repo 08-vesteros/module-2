@@ -1,7 +1,6 @@
 import { useFormik } from 'formik';
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC } from 'react';
 import { useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import Button from '../../components/Button';
 import Form from '../../components/Form';
 import InputGroup from '../../components/InputGroup';
@@ -13,11 +12,11 @@ import ButtonContainer from '../../components/ButtonContainer';
 import { fetchUser } from '../../store/dispatchers/user';
 import { setWarn } from '../../store/reducers/warn';
 import { getOauth } from '../../utils/oauth';
+import { IS_DEV } from '../../../env';
+import { LOCAL_URL, PROD_URL } from '../../constants';
 
 const Signin: FC = () => {
-	const [serviceId, setServiceId] = useState('');
 	const dispatch = useDispatch();
-	const history = useHistory();
 
 	const formik = useFormik({
 		initialValues,
@@ -36,16 +35,14 @@ const Signin: FC = () => {
 		validate,
 	});
 
-	useEffect(() => {
+	const handleClick = () => {
 		getOauth().then(response => {
 			if (response.status === 200) {
-				setServiceId(response.data.service_id);
+				window.location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${
+					response.data.service_id
+				}&redirect_uri=${IS_DEV ? LOCAL_URL : PROD_URL}`;
 			}
 		});
-	}, []);
-
-	const handleClick = () => {
-		// location.href = `https://oauth.yandex.ru/authorize?response_type=code&client_id=${serviceId}&redirect_uri=http://localhost:3000`;
 	};
 
 	return (
@@ -66,11 +63,12 @@ const Signin: FC = () => {
 				))}
 				<ButtonContainer>
 					<Button type='submit' content='Login' disabled={formik.isSubmitting} />
+					<Button content='OAuth' onClick={handleClick} />
 				</ButtonContainer>
 			</Form>
-			<ButtonContainer>
-				<Button content='OAuth' onClick={handleClick} />
-			</ButtonContainer>
+			{/* <ButtonContainer> */}
+
+			{/* </ButtonContainer> */}
 		</>
 	);
 };
