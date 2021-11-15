@@ -89,15 +89,6 @@ module.exports = [
 				document: 'global/document',
 				navigator: path.resolve(path.join(__dirname, '/mock/navigator.mock')),
 			}),
-			new WorkboxWebpackPlugin.InjectManifest({
-				swSrc: './src/src-sw.js',
-				swDest: 'sw.js',
-				mode: 'production',
-				maximumFileSizeToCacheInBytes: 20 * 1024 * 1024,
-			}),
-			new CopyPlugin({
-				patterns: [{ from: './src/manifest.json', to: '' }],
-			}),
 		],
 	},
 ];
