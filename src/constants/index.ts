@@ -9,6 +9,8 @@ export const INPUT_BORDER_COLOR = '#2f2f2f';
 export const LIGHT_GREY = '#e6e6e6';
 export const BORDER = `solid 1px ${LIGHT_GREY}`;
 export const TEAM_NAME = 'vesteros';
+export const PROD_URL = 'https://yp-08-vesteros-module-2.herokuapp.com/';
+export const LOCAL_URL = 'http://localhost:3000';
 
 // game settings
 export const CANVAS_WIDTH = 600;

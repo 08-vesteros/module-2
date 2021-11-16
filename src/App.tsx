@@ -10,12 +10,31 @@ import { LoadStatus } from './store/types';
 import { fetchUser } from './store/dispatchers/user';
 import { checkOnline } from './utils/checkOnline';
 import Game from './pages/game';
+import { postOauth } from './utils/oauth';
+import useQuery from './utils/useQuery';
+import { IS_DEV } from '../env';
+import { LOCAL_URL, PROD_URL } from './constants';
 
 const App = () => {
 	const { status } = useTypedSelector(state => state.user);
 	const dispatch = useDispatch();
 	const isLoading = status === LoadStatus.PENDING;
 	const isOnline = checkOnline();
+
+	const code = useQuery().get('code');
+
+	useEffect(() => {
+		if (code) {
+			postOauth({
+				code,
+				redirect_uri: IS_DEV ? LOCAL_URL : PROD_URL,
+			}).then(response => {
+				if (response.status === 200) {
+					dispatch(fetchUser());
+				}
+			});
+		}
+	}, [code]);
 
 	useEffect(() => {
 		dispatch(fetchUser());
