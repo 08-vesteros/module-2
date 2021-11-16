@@ -66,9 +66,6 @@ const Signin: FC = () => {
 					<Button content='OAuth' onClick={handleClick} />
 				</ButtonContainer>
 			</Form>
-			{/* <ButtonContainer> */}
-
-			{/* </ButtonContainer> */}
 		</>
 	);
 };
