@@ -1,0 +1,11 @@
+# docker-compose.yaml
+version: "3"
+
+services:
+  server-app:
+    build:
+      context: .
+    ports:
+      - "4000:3000"
+        volumes:
+      - ./shared:/var/www/shared
