@@ -7,10 +7,7 @@ import {
 	SPRITES_COORDS,
 } from '../../../constants';
 import { JumpDir } from '../types';
-import spritesPath from '../../../img/sprites.png';
-
-const sprites = new Image();
-sprites.src = spritesPath;
+import SPRITES from '../../../constants/sprites';
 
 export default class Dino {
 	x: number;
@@ -21,32 +18,56 @@ export default class Dino {
 
 	h: number;
 
+	sprite: {
+		x: number;
+		y: number;
+	};
+
 	initY: number;
+
+	initW: number;
+
+	initH: number;
 
 	acceleration: number;
 
 	jumpState: JumpDir;
 
+	isDuck: boolean;
+
 	constructor(x: number, y: number, w: number, h: number) {
 		this.initY = y;
+		this.initW = w;
+		this.initH = h;
 		this.x = x;
 		this.y = y;
 		this.w = w;
 		this.h = h;
 		this.acceleration = BASE_ACCELERATION;
+		this.isDuck = false;
+		this.sprite = SPRITES_COORDS.DINO;
 	}
 
 	draw(ctx: CanvasRenderingContext2D, frame: number) {
 		this.jump();
 		ctx.beginPath();
-		const spritePosX =
-			Math.floor(frame / 7) % 2 === 0
-				? SPRITES_COORDS.DINO_LEFT.x
-				: SPRITES_COORDS.DINO_RIGHT.x;
+
+		if (!this.jumpState) {
+			this.sprite =
+				Math.floor(frame / 7) % 2 === 0
+					? SPRITES_COORDS.DINO_LEFT
+					: SPRITES_COORDS.DINO_RIGHT;
+			this.duck(frame);
+		} else {
+			this.w = this.initW;
+			this.h = this.initH;
+			this.sprite = SPRITES_COORDS.DINO;
+		}
+
 		ctx.drawImage(
-			sprites,
-			spritePosX,
-			SPRITES_COORDS.DINO.y,
+			SPRITES,
+			this.sprite.x,
+			this.sprite.y,
 			this.w,
 			this.h,
 			this.x,
@@ -80,6 +101,23 @@ export default class Dino {
 				break;
 
 			default:
+				break;
 		}
+	}
+
+	duck(frame: number) {
+		this.w = this.initW;
+		this.h = this.initH;
+		this.y = this.initY;
+		if (!this.isDuck || this.jumpState) return;
+
+		this.w = 118;
+		this.h = 60;
+		this.y = 246;
+
+		this.sprite =
+			Math.floor(frame / 7) % 2 === 0
+				? SPRITES_COORDS.DINO_DUCK_LEFT
+				: SPRITES_COORDS.DINO_DUCK_RIGHT;
 	}
 }
