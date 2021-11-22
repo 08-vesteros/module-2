@@ -1,9 +1,11 @@
 import React, { useEffect, useRef, useState } from 'react';
+import { addUserLeaderBoard } from '../../utils/leaderboard';
 import { CANVAS_WIDTH, CANVAS_HEIGHT, GRAVITY } from '../../constants';
 import { Wrapper } from '../../ui/wrapper';
 import { Canvas } from './styled';
 import Dino from './utils/dino';
 import Obstacle from './utils/obstacle';
+import useTypedSelector from '../../store/selectors/typedSelector';
 
 const overMessage = (ctx: CanvasRenderingContext2D, score: number) => {
 	ctx.textAlign = 'center';
@@ -26,6 +28,7 @@ const renderScore = (ctx: CanvasRenderingContext2D, score: number) => {
 };
 
 const Game = () => {
+	const { item: user } = useTypedSelector(state => state.user);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
 	const [isGameOver, setGameOver] = useState(false);
 	const [finalScore, setFinalScore] = useState(0);
@@ -108,6 +111,13 @@ const Game = () => {
 						obstacle.y < dino.y + dino.h &&
 						obstacle.y + obstacle.h > dino.y
 					) {
+						if (user) {
+							addUserLeaderBoard({
+								id: user.id,
+								name: user.display_name || user.login,
+								vesterosScore: score,
+							});
+						}
 						setFinalScore(score);
 						setGameOver(true);
 					}

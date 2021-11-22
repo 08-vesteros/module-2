@@ -3,10 +3,10 @@
 		"lib": ["dom", "es2017"],
 		"module": "esnext",
 		"moduleResolution": "node",
-		"target": "es5",
+		"target": "es6",
 		"jsx": "react",
 		"importHelpers": true,
-		"noUnusedLocals": true,
+		"noUnusedLocals": false,
 		"esModuleInterop": true,
 		"strict": true,
 		"allowSyntheticDefaultImports": true,
@@ -22,5 +22,5 @@
 		"typeRoots": ["typings/**/*.d.ts", "node_modules/@types"]
 	},
 	"include": ["src", "typings/**/*.d.ts", "./node_modules/@types"],
-	"exclude": ["**/*.js"]
+	"exclude": ["**/*.js", "node_modules"]
 }
