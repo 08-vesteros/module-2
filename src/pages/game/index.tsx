@@ -6,8 +6,10 @@ import { Canvas } from './styled';
 import Dino from './utils/dino';
 import Obstacle from './utils/obstacle';
 import useTypedSelector from '../../store/selectors/typedSelector';
+import SOUNDS from './utils/audio';
 
 const overMessage = (ctx: CanvasRenderingContext2D, score: number) => {
+	SOUNDS.playCollision();
 	ctx.textAlign = 'center';
 	ctx.font = '40px sans-serif';
 	ctx.textBaseline = 'bottom';
@@ -86,6 +88,7 @@ const Game = () => {
 			canvas.height = CANVAS_HEIGHT * 2;
 			canvas.style.width = `${CANVAS_WIDTH}px`;
 			canvas.style.height = `${CANVAS_HEIGHT}px`;
+			canvas.focus();
 		}
 
 		const render = () => {
@@ -99,11 +102,11 @@ const Game = () => {
 				context?.clearRect(0, 0, canvas.width, canvas.height);
 				renderScore(context, score);
 
-				dino.draw(context, frame);
+				dino.draw(context);
 
 				for (let i = 0; i < obstacles.length; i += 1) {
 					const obstacle = obstacles[i];
-					obstacle.draw(context, frame);
+					obstacle.draw(context);
 
 					if (
 						obstacle.x < dino.x + dino.w &&
