@@ -15,12 +15,12 @@ services:
     networks:
       - awesome
   postgres:
+    container_name: postgres
     image: postgres:12
     ports:
       - "5432:5432"
     volumes: 
       - ./postgresdata:/var/lib/postgresql/data
-      - ./src/migrations/dbinit.sql:/docker-entrypoint-initdb.d/dbinit.sql
     restart: always
     environment:
       POSTGRES_USER: postgres
