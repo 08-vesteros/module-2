@@ -7,8 +7,9 @@
 		"start": "node dist/server",
 		"build": "webpack --mode production",
 		"watch:dev": "webpack --watch --mode development",
-		"start:dev": "nodemon --delay 2 dist/server",
+		"start:dev": "npm run migrate && nodemon --delay 2 dist/server",
 		"start:all-dev": "npm run start:dev && npm run watch:dev",
+		"migrate": "npx sequelize-cli db:migrate",
 		"test": "jest"
 	},
 	"husky": {
@@ -71,6 +72,7 @@
 		"null-loader": "^4.0.1",
 		"path": "^0.12.7",
 		"prettier": "^2.4.1",
+		"sequelize-cli": "^6.3.0",
 		"ts-jest": "^27.0.5",
 		"ts-loader": "^9.2.5",
 		"ts-node": "^10.2.1",
