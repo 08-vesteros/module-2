@@ -1,18 +1,15 @@
 import { Sequelize, SequelizeOptions } from 'sequelize-typescript';
-import { config } from 'dotenv';
-import { Post } from '../db/models/posts/Post';
-import { User } from '../db/models/users/User';
-
-config();
+import Post from '../db/models/Post';
+import Comment from '../db/models/Comment';
 
 const sequelizeOptions: SequelizeOptions = {
-	host: process.env.DB_HOST,
-	port: Number(process.env.DB_PORT),
-	username: process.env.DB_USER,
-	password: process.env.DB_PASS,
-	database: process.env.DB_NAME,
+	host: 'localhost',
+	port: 54320,
+	username: 'postgres',
+	password: 'newPassword',
+	database: 'my-db-name',
 	dialect: 'postgres',
-	models: [User, Post],
+	models: [Comment, Post],
 };
 
 export const sequelize = new Sequelize(sequelizeOptions);

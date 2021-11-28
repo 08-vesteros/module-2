@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import { Post } from './Post';
+import Post from '../db/models/Post';
 
 export const postRouterFactory = () =>
 	Router()
@@ -11,7 +11,7 @@ export const postRouterFactory = () =>
 
 		.get('/posts/:id', (req, res, next) =>
 			Post.findByPk(req.params.id)
-				.then(post => (post ? res.json(post) : next({ statusCode: 404 })))
+				.then(post => (post ? res.json(post) : res.sendStatus(404)))
 				.catch(next)
 		)
 

@@ -1,8 +1,0 @@
-CREATE DATABASE "my-db-name";
-
-CREATE TABLE "post"
-(
-  "id" SERIAL PRIMARY KEY,
-  "created" TIMESTAMP NOT NULL DEFAULT NOW(),
-  "name" VARCHAR(255) NOT NULL UNIQUE
-)
