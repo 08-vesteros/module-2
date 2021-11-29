@@ -4,7 +4,7 @@
 	"description": "",
 	"main": "index.ts",
 	"scripts": {
-		"start": "node dist/server",
+		"start": "npm run migrate && node dist/server",
 		"build": "webpack --mode production",
 		"watch:dev": "webpack --watch --mode development",
 		"start:dev": "npm run migrate && nodemon --delay 2 dist/server",
