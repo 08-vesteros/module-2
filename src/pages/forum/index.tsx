@@ -27,6 +27,4 @@ const Forum: FC = () => {
 
 Forum.displayName = 'Forum';
 
-Forum.displayName = 'Forum';
-
 export default Forum;
