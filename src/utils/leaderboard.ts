@@ -13,7 +13,11 @@ const addUserLeaderBoard = (values: any) =>
 	axiosWrap({
 		method: Methods.POST,
 		url: '/leaderboard',
-		data: values,
+		data: {
+			data: values,
+			ratingFieldName: `${TEAM_NAME}Score`,
+			teamName: TEAM_NAME,
+		},
 	});
 
 export { getLeaderBoard, addUserLeaderBoard };
