@@ -11,7 +11,23 @@ export const commentRouterFactory = () =>
 		)
 
 		.get('/comments/:id', (req, res, next) =>
-			Comment.findByPk(req.params.id)
+			Comment.findByPk(req.params.id, {
+				include: [Comment],
+			})
+				.then(comment => (comment ? res.json(comment) : res.sendStatus(404)))
+				.catch(next)
+		)
+
+		.get('/replies/:id', (req, res, next) =>
+			Comment.findAll({
+				include: [
+					{
+						model: Comment,
+						as: 'replies',
+						nested: true,
+					},
+				],
+			})
 				.then(comment => (comment ? res.json(comment) : res.sendStatus(404)))
 				.catch(next)
 		)

@@ -4,6 +4,8 @@ import { sequelize } from './sequelize';
 
 const port = process.env.PORT || 3000;
 
+console.log(__dirname);
+
 sequelize
 	.authenticate()
 	.then(() => {

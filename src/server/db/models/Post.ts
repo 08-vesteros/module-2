@@ -1,4 +1,5 @@
-import { Model, Table, Column } from 'sequelize-typescript';
+import { Model, Table, Column, HasMany } from 'sequelize-typescript';
+import Comment from './Comment';
 
 @Table
 export default class Post extends Model {
@@ -7,4 +8,6 @@ export default class Post extends Model {
 	@Column title!: string;
 
 	@Column userId!: number;
+
+	@HasMany(() => Comment) comments: Comment[] | null = null;
 }

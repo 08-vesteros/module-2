@@ -20,6 +20,13 @@ module.exports = {
 					key: 'id',
 				},
 			},
+			parentId: {
+				type: Sequelize.INTEGER,
+				references: {
+					model: 'Comments',
+					key: 'id',
+				},
+			},
 			createdAt: {
 				allowNull: false,
 				type: Sequelize.DATE,
