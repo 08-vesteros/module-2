@@ -1,34 +1,93 @@
-import React, { useEffect, useRef } from 'react';
-import {
-	CANVAS_WIDTH,
-	JUPM_HEIGHT,
-	CANVAS_HEIGHT,
-	GRAVITY,
-	GAME_SPEED,
-} from '../../constants';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
+import { addUserLeaderBoard } from '../../utils/leaderboard';
+import { CANVAS_WIDTH, CANVAS_HEIGHT, GRAVITY } from '../../constants';
 import { Wrapper } from '../../ui/wrapper';
 import { Canvas } from './styled';
-import { ObstaclesType } from './types';
-import { createDyno } from './utils/create-dyno';
-import { createObstacle } from './utils/create-obstacle';
+import Dino from './utils/dino';
+import Obstacle from './utils/obstacle';
+import useTypedSelector from '../../store/selectors/typedSelector';
+import SOUNDS from './utils/audio';
+
+const overMessage = (ctx: CanvasRenderingContext2D, score: number) => {
+	SOUNDS.playCollision();
+	ctx.textAlign = 'center';
+	ctx.font = '40px sans-serif';
+	ctx.textBaseline = 'bottom';
+	ctx.fillText('GAME OVER', ctx.canvas.width / 2, ctx.canvas.height / 2);
+	ctx.font = '30px sans-serif';
+	ctx.textBaseline = 'top';
+	ctx.fillText(
+		`Your score: ${score}`,
+		ctx.canvas.width / 2,
+		ctx.canvas.height / 2
+	);
+};
+
+const renderScore = (ctx: CanvasRenderingContext2D, score: number) => {
+	ctx.textAlign = 'right';
+	ctx.font = '40px sans-serif';
+	ctx.fillText(`${score}`, ctx.canvas.width - 15, 45);
+};
 
 const Game = () => {
+	const { item: user } = useTypedSelector(state => state.user);
 	const canvasRef = useRef<HTMLCanvasElement>(null);
-	const pos = { x: 0, y: 200 };
-	const obstacles: ObstaclesType[] = [];
-	obstacles[0] = {
-		x: CANVAS_WIDTH * 2,
-		y: 220,
-		w: 50,
-		h: 80,
-	};
+	const [isGameOver, setGameOver] = useState(false);
+	const [finalScore, setFinalScore] = useState(0);
+	let frame = 0;
+	const obstacles: Obstacle[] = [];
+	const dino = new Dino(100, 212, 88, 94);
+	let score = 0;
 
-	const jump = () => {
-		// TOTO smooth jumping up
-		if (pos.y === 200) {
-			pos.y = JUPM_HEIGHT;
-		}
-	};
+	obstacles.push(new Obstacle());
+
+	const keyDownHandler = useCallback(
+		(e: React.KeyboardEvent) => {
+			e.preventDefault();
+			if (dino.jumpState) return;
+
+			switch (e.code) {
+				case 'ArrowUp':
+				case 'Space':
+					dino.y -= GRAVITY;
+					dino.jumpState = 'up';
+					break;
+
+				case 'ArrowDown':
+					dino.isDuck = true;
+					break;
+
+				default:
+					break;
+			}
+		},
+		[dino]
+	);
+
+	const keyUpHandler = useCallback(
+		(e: React.KeyboardEvent) => {
+			e.preventDefault();
+
+			switch (e.code) {
+				case 'ArrowDown':
+					dino.isDuck = false;
+					break;
+
+				default:
+					break;
+			}
+		},
+		[dino]
+	);
+
+	const restart = useCallback(
+		(e: React.MouseEvent) => {
+			e.preventDefault();
+			if (!isGameOver) return;
+			setGameOver(false);
+		},
+		[isGameOver]
+	);
 
 	useEffect(() => {
 		const canvas = canvasRef?.current;
@@ -38,47 +97,62 @@ const Game = () => {
 			canvas.height = CANVAS_HEIGHT * 2;
 			canvas.style.width = `${CANVAS_WIDTH}px`;
 			canvas.style.height = `${CANVAS_HEIGHT}px`;
+			canvas.focus();
 		}
 
 		const render = () => {
 			if (canvas) {
-				context?.clearRect(0, 0, canvas.width, canvas.height);
-				createDyno(context, pos.x, pos.y, 100, 100);
-
-				if (pos.y < 200) {
-					pos.y += GRAVITY;
-				} else {
-					pos.y = 200;
+				score += 1;
+				if (isGameOver) {
+					overMessage(context, finalScore);
+					return;
 				}
 
+				context?.clearRect(0, 0, canvas.width, canvas.height);
+				renderScore(context, score);
+
+				dino.draw(context);
+
 				for (let i = 0; i < obstacles.length; i += 1) {
-					createObstacle(
-						context,
-						obstacles[i].x,
-						obstacles[i].y,
-						obstacles[i].w,
-						obstacles[i].h
-					);
-					obstacles[i].x -= GAME_SPEED;
-					// TODO random show obstacles
-					if (obstacles[i].x === 135) {
-						obstacles.push({
-							x: canvas.width,
-							y: 220,
-							w: 50,
-							h: 80,
-						});
+					const obstacle = obstacles[i];
+					obstacle.draw(context);
+
+					if (
+						obstacle.x < dino.x + dino.w &&
+						obstacle.x + obstacle.w > dino.x &&
+						obstacle.y < dino.y + dino.h &&
+						obstacle.y + obstacle.h > dino.y
+					) {
+						if (user) {
+							addUserLeaderBoard({
+								id: user.id,
+								name: user.display_name || user.login,
+								vesterosScore: score,
+							});
+						}
+						setFinalScore(score);
+						setGameOver(true);
 					}
 				}
 			}
-			requestAnimationFrame(render);
+			frame = requestAnimationFrame(render);
 		};
 		render();
-	}, []);
+
+		return () => {
+			cancelAnimationFrame(frame);
+		};
+	}, [isGameOver]);
 
 	return (
 		<Wrapper>
-			<Canvas tabIndex={0} ref={canvasRef} onKeyDown={jump} />
+			<Canvas
+				tabIndex={0}
+				ref={canvasRef}
+				onClick={restart}
+				onKeyDown={keyDownHandler}
+				onKeyUp={keyUpHandler}
+			/>
 		</Wrapper>
 	);
 };

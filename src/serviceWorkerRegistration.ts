@@ -15,7 +15,7 @@ export const registerServiceWorker = () => {
 			 * only on the updated
 			 */
 			if (event.isUpdate) {
-				// eslint-disable-next-line no-restricted-globals
+				// eslint-disable-next-line
 				if (confirm(`New app update is available!. Click OK to refresh`)) {
 					window.location.reload();
 				}
