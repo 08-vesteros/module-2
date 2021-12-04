@@ -21,7 +21,6 @@ delete window.__INITIAL_STATE__;
 hydrate(
 	<Provider store={store}>
 		<Router>
-			<GlobalStyles />
 			<App />
 		</Router>
 	</Provider>,

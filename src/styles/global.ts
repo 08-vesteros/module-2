@@ -1,8 +1,9 @@
 import { createGlobalStyle } from 'styled-components';
 import { BORDER, WHITE_COLOR } from '../constants';
 import TRex from '../img/t-rex.png';
+import { ThemeType } from './theme';
 
-export default createGlobalStyle`
+export default createGlobalStyle<{ theme: ThemeType }>`
   * {
     box-sizing: border-box;
   }
@@ -10,7 +11,7 @@ export default createGlobalStyle`
   body {
     padding: 30px 10px;
     margin: 0;
-    background-color: #fafafa;
+    background-color: ${({ theme }) => theme.backgroundColor};
     font-family: sans-serif;
   }
 
@@ -27,6 +28,7 @@ export default createGlobalStyle`
     border: ${BORDER};
     border-radius: 10px;
     overflow: hidden;
-    background-color: ${WHITE_COLOR};
+    background-color: ${({ theme }) => theme.backgroundColor};
+    color: ${({ theme }) => theme.color};
   }
 `;

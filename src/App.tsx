@@ -1,6 +1,7 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
+import { ThemeProvider } from 'styled-components';
 import WarnModal from './components/Warn';
 import { TRoute } from './modules/Header/types';
 import Header from './modules/Header';
@@ -14,6 +15,9 @@ import { postOauth } from './utils/oauth';
 import useQuery from './utils/useQuery';
 import { IS_DEV } from '../env';
 import { LOCAL_URL, PROD_URL } from './constants';
+import { darkTheme, lightTheme, Themes } from './styles/theme';
+import GlobalStyles from './styles/global';
+import Button from './components/Button';
 
 const App = () => {
 	const { status } = useTypedSelector(state => state.user);
@@ -43,27 +47,40 @@ const App = () => {
 	const routes =
 		status === LoadStatus.SUCCESS ? loggedInRoutes : loggedOutRoutes;
 
-	return (
-		<div className='container'>
-			{isOnline && isLoading ? (
-				<p>Loading...</p>
-			) : (
-				<>
-					<Header routes={routes} />
+	const [theme, setTheme] = useState<string>(Themes.LIGHT);
 
-					<main>
-						<Switch>
-							{routes.map((route: TRoute) => (
-								<Route exact {...route} key={route.path} />
-							))}
-							<Route exact component={Game} path='/game' />
-							<Route render={() => <Redirect to='/' />} />
-						</Switch>
-					</main>
-					<WarnModal />
-				</>
-			)}
-		</div>
+	const toggleTheme = () => {
+		if (theme === Themes.LIGHT) {
+			setTheme(Themes.DARK);
+		} else {
+			setTheme(Themes.LIGHT);
+		}
+	};
+
+	return (
+		<ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+			<GlobalStyles />
+			<div className='container'>
+				{isOnline && isLoading ? (
+					<p>Loading...</p>
+				) : (
+					<>
+						<Header routes={routes} />
+						<Button content='Switch Theme' onClick={toggleTheme} />
+						<main>
+							<Switch>
+								{routes.map((route: TRoute) => (
+									<Route exact {...route} key={route.path} />
+								))}
+								<Route exact component={Game} path='/game' />
+								<Route render={() => <Redirect to='/' />} />
+							</Switch>
+						</main>
+						<WarnModal />
+					</>
+				)}
+			</div>
+		</ThemeProvider>
 	);
 };
 
