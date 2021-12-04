@@ -34,6 +34,10 @@ module.exports = [
 					type: 'asset/resource',
 					exclude: /node_modules/,
 				},
+				{
+					test: /\.ogg$/,
+					loader: 'file-loader',
+				},
 			],
 		},
 		plugins: [
@@ -67,7 +71,7 @@ module.exports = [
 				},
 				{
 					loader: 'null-loader',
-					test: /^(?!.*\.inline).*\.(svg|jpe?g|png|gif|eot|woff2?|ttf)$/,
+					test: /^(?!.*\.inline).*\.(svg|jpe?g|png|gif|ogg|eot|woff2?|ttf)$/,
 				},
 			],
 		},

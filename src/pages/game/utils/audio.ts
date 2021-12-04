@@ -1,14 +1,18 @@
 import jumpOgg from '../../../assets/jump.ogg';
 import collisionOgg from '../../../assets/collision.ogg';
 
-export default class Sound {
+class Sound {
 	jumpAudio: HTMLAudioElement;
 
 	collisionAudio: HTMLAudioElement;
 
 	constructor() {
-		this.jumpAudio = new Audio(jumpOgg);
-		this.collisionAudio = new Audio(collisionOgg);
+		const jump = document.createElement('audio');
+		jump.src = jumpOgg;
+		const collision = document.createElement('audio');
+		collision.src = collisionOgg;
+		this.jumpAudio = jump;
+		this.collisionAudio = collision;
 	}
 
 	playJump(): void {
@@ -19,3 +23,5 @@ export default class Sound {
 		this.collisionAudio.play();
 	}
 }
+
+export default new Sound();

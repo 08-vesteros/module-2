@@ -9,6 +9,7 @@ const CreateCommentForm: FC = () => {
 	const formik = useFormik({
 		initialValues,
 		onSubmit: async values => {
+			// eslint-disable-next-line no-console
 			console.log(values);
 		},
 		validateOnChange: false,
