@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { addUserLeaderBoard } from '../../utils/leaderboard';
 import { CANVAS_WIDTH, CANVAS_HEIGHT, GRAVITY } from '../../constants';
 import { Wrapper } from '../../ui/wrapper';
@@ -41,44 +41,53 @@ const Game = () => {
 
 	obstacles.push(new Obstacle());
 
-	const keyDownHandler = (e: React.KeyboardEvent) => {
-		e.preventDefault();
-		if (dino.jumpState) return;
+	const keyDownHandler = useCallback(
+		(e: React.KeyboardEvent) => {
+			e.preventDefault();
+			if (dino.jumpState) return;
 
-		switch (e.code) {
-			case 'ArrowUp':
-			case 'Space':
-				dino.y -= GRAVITY;
-				dino.jumpState = 'up';
-				break;
+			switch (e.code) {
+				case 'ArrowUp':
+				case 'Space':
+					dino.y -= GRAVITY;
+					dino.jumpState = 'up';
+					break;
 
-			case 'ArrowDown':
-				dino.isDuck = true;
-				break;
+				case 'ArrowDown':
+					dino.isDuck = true;
+					break;
 
-			default:
-				break;
-		}
-	};
+				default:
+					break;
+			}
+		},
+		[dino]
+	);
 
-	const keyUpHandler = (e: React.KeyboardEvent) => {
-		e.preventDefault();
+	const keyUpHandler = useCallback(
+		(e: React.KeyboardEvent) => {
+			e.preventDefault();
 
-		switch (e.code) {
-			case 'ArrowDown':
-				dino.isDuck = false;
-				break;
+			switch (e.code) {
+				case 'ArrowDown':
+					dino.isDuck = false;
+					break;
 
-			default:
-				break;
-		}
-	};
+				default:
+					break;
+			}
+		},
+		[dino]
+	);
 
-	const restart = (e: React.MouseEvent) => {
-		e.preventDefault();
-		if (!isGameOver) return;
-		setGameOver(false);
-	};
+	const restart = useCallback(
+		(e: React.MouseEvent) => {
+			e.preventDefault();
+			if (!isGameOver) return;
+			setGameOver(false);
+		},
+		[isGameOver]
+	);
 
 	useEffect(() => {
 		const canvas = canvasRef?.current;
