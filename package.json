@@ -38,6 +38,7 @@
 	},
 	"homepage": "https://github.com/08-vesteros/module-2#readme",
 	"devDependencies": {
+		"@types/emoji-mart": "^3.0.8",
 		"@types/enzyme": "^3.10.9",
 		"@types/express": "^4.17.13",
 		"@types/jest": "^27.0.2",
@@ -88,6 +89,7 @@
 		"@types/react-dom": "^17.0.9",
 		"@types/react-router-dom": "^5.1.9",
 		"axios": "^0.21.4",
+		"emoji-mart": "^3.0.1",
 		"express": "^4.17.1",
 		"formik": "^2.2.9",
 		"pg": "^8.7.1",

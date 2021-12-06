@@ -1,31 +1,30 @@
 import { Router } from 'express';
-import { Op } from 'sequelize/dist';
+import { Sequelize } from 'sequelize';
+import Message from '../db/models/Message';
 import Post from '../db/models/Post';
-import Comment from '../db/models/Comment';
 
 export const postRouterFactory = () =>
 	Router()
 		.get('/posts', (req, res, next) =>
-			Post.findAll()
+			Post.findAll({
+				attributes: [
+					'id',
+					'topic',
+					'userName',
+					'userId',
+					'createdAt',
+					[Sequelize.fn('COUNT', Sequelize.col('messages.postId')), 'repliesCount'],
+				],
+				include: [{ model: Message, attributes: [] }],
+				group: ['Post.id'],
+				order: [['createdAt', 'DESC']],
+			})
 				.then(posts => res.json(posts))
 				.catch(next)
 		)
 
 		.get('/posts/:id', (req, res, next) =>
-			Post.findByPk(req.params.id, {
-				include: [
-					{
-						model: Comment,
-						as: 'comments',
-						where: {
-							parentId: {
-								[Op.eq]: null,
-							},
-						},
-						include: [{ all: true, nested: true }],
-					},
-				],
-			})
+			Post.findByPk(req.params.id)
 				.then(post => (post ? res.json(post) : res.sendStatus(404)))
 				.catch(next)
 		)

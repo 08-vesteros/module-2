@@ -1,6 +1,6 @@
 import express from 'express';
 import serverRenderMiddleware from './renderMiddleWare';
-import { commentRouterFactory } from './controllers/comment';
+import { commentRouterFactory } from './controllers/message';
 import { postRouterFactory } from './controllers/post';
 
 const app = express();

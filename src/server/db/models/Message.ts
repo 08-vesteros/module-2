@@ -4,22 +4,23 @@ import {
 	Column,
 	ForeignKey,
 	HasMany,
-	HasOne,
 	BelongsTo,
 } from 'sequelize-typescript';
 import Post from './Post';
 
 @Table
-export default class Comment extends Model {
+export default class Message extends Model {
 	@Column text!: string;
 
 	@Column userId!: number;
 
+	@Column userName!: string;
+
 	@ForeignKey(() => Post) @Column postId!: number;
 
-	@ForeignKey(() => Comment) @Column parentId?: number;
+	@ForeignKey(() => Message) @Column parentId?: number;
 
-	// @BelongsTo(() => Comment, 'parentId') parent?: Comment;
+	@BelongsTo(() => Message, 'parentId') parent?: Message;
 
-	@HasMany(() => Comment) replies?: Comment[];
+	@HasMany(() => Message) replies?: Message[];
 }

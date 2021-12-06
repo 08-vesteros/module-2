@@ -1,6 +1,6 @@
 module.exports = {
 	up: async (queryInterface, Sequelize) => {
-		await queryInterface.createTable('Comments', {
+		await queryInterface.createTable('Messages', {
 			id: {
 				allowNull: false,
 				autoIncrement: true,
@@ -9,12 +9,19 @@ module.exports = {
 			},
 			text: {
 				type: Sequelize.STRING,
+				allowNull: false,
 			},
 			userId: {
 				type: Sequelize.INTEGER,
+				allowNull: false,
+			},
+			userName: {
+				type: Sequelize.STRING,
+				allowNull: false,
 			},
 			postId: {
 				type: Sequelize.INTEGER,
+				allowNull: false,
 				references: {
 					model: 'Posts',
 					key: 'id',
@@ -23,7 +30,7 @@ module.exports = {
 			parentId: {
 				type: Sequelize.INTEGER,
 				references: {
-					model: 'Comments',
+					model: 'Messages',
 					key: 'id',
 				},
 			},
@@ -38,6 +45,6 @@ module.exports = {
 		});
 	},
 	down: async (queryInterface, Sequelize) => {
-		await queryInterface.dropTable('Comments');
+		await queryInterface.dropTable('Messages');
 	},
 };

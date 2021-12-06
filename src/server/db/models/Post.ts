@@ -1,13 +1,13 @@
 import { Model, Table, Column, HasMany } from 'sequelize-typescript';
-import Comment from './Comment';
+import Message from './Message';
 
 @Table
 export default class Post extends Model {
-	@Column text!: string;
-
-	@Column title!: string;
+	@Column topic!: string;
 
 	@Column userId!: number;
 
-	@HasMany(() => Comment) comments: Comment[] | null = null;
+	@Column userName!: string;
+
+	@HasMany(() => Message) messages?: Message[];
 }
