@@ -22,7 +22,7 @@ export const InputGroupWrapper = styled.div`
 
 		&__label {
 			position: absolute;
-			background-color: ${WHITE_COLOR};
+			background-color: ${({ theme }) => theme.inputLabelBgColor};
 			color: ${DARK_PRIMARY_COLOR};
 			left: 20px;
 			top: 1px;

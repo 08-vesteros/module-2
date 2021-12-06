@@ -20,6 +20,9 @@ export default createGlobalStyle<{ theme: ThemeType }>`
     background: url(${TRex}) no-repeat right bottom;
     background-size: 128px;
     min-height: 200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
   }
 
   .container {

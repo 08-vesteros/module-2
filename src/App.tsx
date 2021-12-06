@@ -66,7 +66,6 @@ const App = () => {
 				) : (
 					<>
 						<Header routes={routes} />
-						<Button content='Switch Theme' onClick={toggleTheme} />
 						<main>
 							<Switch>
 								{routes.map((route: TRoute) => (
@@ -75,6 +74,7 @@ const App = () => {
 								<Route exact component={Game} path='/game' />
 								<Route render={() => <Redirect to='/' />} />
 							</Switch>
+							<Button content='Switch Theme' onClick={toggleTheme} />
 						</main>
 						<WarnModal />
 					</>
