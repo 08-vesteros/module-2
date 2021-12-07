@@ -1,8 +1,11 @@
 export type CommentsTypes = {
 	postId: number;
-	commentId: number;
-	name: string;
-	body: string;
+	id: number;
+	userName: string;
+	text: string;
+	parentid: number | null;
+	createdAt: string;
+	root: number;
 };
 
 export type MatchTypes = {

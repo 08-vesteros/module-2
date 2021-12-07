@@ -6,7 +6,7 @@ export type InputProps = {
 	value: string;
 	disabled?: boolean;
 	id?: string;
-	onChange?: ChangeEventHandler;
+	onChange?: ChangeEventHandler<HTMLInputElement>;
 	onBlur?: FocusEventHandler;
 };
 

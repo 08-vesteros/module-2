@@ -23,6 +23,7 @@ const getHtml = (
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <link rel="manifest" href="manifest.json" />
         <title>Mega T Rex Game</title>
+				<link href=”emoji-mart/css/emoji-mart.css” rel=”stylesheet” type=”text/css”>
 				${styles.getStyleTags()}
       </head>
 

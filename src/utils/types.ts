@@ -40,4 +40,5 @@ export type TRequest = {
 	method: Methods;
 	url: string;
 	data?: TFieldValues | FormData;
+	server?: boolean;
 };

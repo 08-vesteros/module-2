@@ -1,24 +1,16 @@
-import express from 'express';
-import serverRenderMiddleware from './renderMiddleWare';
+import { createServer } from 'http';
+import app from './app';
 import { sequelize } from './sequelize';
 
-const app = express();
 const port = process.env.PORT || 3000;
 
-const sequelizeSync = async () => {
-	try {
-		await sequelize.sync({ alter: true });
-		console.log('Connected to the db');
-	} catch (error) {
-		console.error('Unable to connect to the db', error);
-	}
-};
+console.log(__dirname);
 
-app.use(express.static('dist'));
-app.get('*', serverRenderMiddleware);
-
-app.listen(port, () => {
-	// eslint-disable-next-line no-console
-	console.log(`Listening on port ${port}`);
-	sequelizeSync();
-});
+sequelize
+	.authenticate()
+	.then(() => {
+		createServer(app).listen(port, () =>
+			console.log(`Server listen on port ${port}`)
+		);
+	})
+	.catch(console.log);

@@ -1,16 +1,11 @@
 import styled from 'styled-components';
-import { BORDER, DARK_PRIMARY_COLOR } from '../../constants';
+import { DARK_PRIMARY_COLOR } from '../../constants';
 
-export const CommentsContainer = styled.div`
+export const CommentsContainer = styled.ul`
 	list-style-type: none;
 	margin-bottom: 30px;
-
-	li {
-		display: flex;
-		flex-direction: column;
-		border-top: ${BORDER};
-		padding: 10px;
-	}
+	padding: 0;
+	width: 100%;
 
 	.list__name {
 		margin-bottom: 10px;

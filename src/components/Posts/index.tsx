@@ -1,27 +1,39 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { toLocalDate, toLocalDateTime } from '../../utils/globalFunctions';
 import CreatePostsForm from '../CreatePostsForm';
-import { PostsContainer, ListItem, FormWrapper, Header } from './styled';
+import { Body, FormWrapper, Head, PostsTable } from './styled';
 import { Props } from './types';
 
-export const Posts = ({ data }: Props) => (
+export const Posts = ({ data, setUpdated }: Props) => (
 	<>
 		<FormWrapper>
-			<CreatePostsForm />
+			<CreatePostsForm setUpdated={setUpdated} />
 		</FormWrapper>
 		{data.length ? (
-			<>
-				<Header>
-					<span className='header__topic'>Topic</span>
-					<span>Replies</span>
-				</Header>
-				<PostsContainer>
+			<PostsTable>
+				<Head>
+					<tr>
+						<th className='topic'>Topic</th>
+						<th className='replies'>Replies</th>
+					</tr>
+				</Head>
+				<Body>
 					{data.map(item => (
-						<li key={item.id}>
-							<ListItem to={`forum/${item.id}`}>{item.title}</ListItem>
-						</li>
+						<tr key={item.id}>
+							<td>
+								<Link className='topic-title' to={`forum/${item.id}`}>
+									{item.topic}
+								</Link>
+								<p className='topic-meta'>
+									{item.userName}, {toLocalDateTime(item.createdAt)}
+								</p>
+							</td>
+							<td className='replies-count'>{item.repliesCount}</td>
+						</tr>
 					))}
-				</PostsContainer>
-			</>
+				</Body>
+			</PostsTable>
 		) : (
 			<span>No Topics</span>
 		)}
