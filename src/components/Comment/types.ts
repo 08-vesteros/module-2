@@ -1,9 +1,6 @@
 import { Dispatch } from 'react';
-
-export const initialValues = {
-	text: '',
-};
+import { CommentsTypes } from '../Comments/types';
 
 export type Props = {
 	setUpdated: Dispatch<boolean>;
-};
+} & CommentsTypes;

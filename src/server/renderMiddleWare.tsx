@@ -2,7 +2,7 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { Request, Response } from 'express';
 import { StaticRouter } from 'react-router-dom';
-// eslint-disable-next-line import/no-unresolved
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { StaticRouterContext } from 'react-router';
 import { Provider } from 'react-redux';
 import { ServerStyleSheet } from 'styled-components';
@@ -23,6 +23,7 @@ const getHtml = (
         <meta http-equiv="X-UA-Compatible" content="ie=edge" />
         <link rel="manifest" href="manifest.json" />
         <title>Mega T Rex Game</title>
+				<link href=”emoji-mart/css/emoji-mart.css” rel=”stylesheet” type=”text/css”>
 				${styles.getStyleTags()}
       </head>
 
