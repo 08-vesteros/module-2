@@ -2,6 +2,7 @@ import express from 'express';
 import serverRenderMiddleware from './renderMiddleWare';
 import { commentRouterFactory } from './controllers/message';
 import { postRouterFactory } from './controllers/post';
+import { userThemeRouterFactory } from './controllers/userTheme';
 
 const app = express();
 
@@ -9,6 +10,7 @@ app.use(express.json());
 
 app.use(commentRouterFactory());
 app.use(postRouterFactory());
+app.use(userThemeRouterFactory());
 
 app.use(express.static('dist'));
 app.get('*', serverRenderMiddleware);

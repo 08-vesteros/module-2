@@ -18,6 +18,7 @@ import { LOCAL_URL, PROD_URL } from './constants';
 import { darkTheme, lightTheme, Themes } from './styles/theme';
 import GlobalStyles from './styles/global';
 import Button from './components/Button';
+import { getUserTheme, updateUserTheme } from './utils/theme';
 
 const App = () => {
 	const { status } = useTypedSelector(state => state.user);
@@ -57,6 +58,28 @@ const App = () => {
 		}
 	};
 
+	useEffect(() => {
+		if (status === LoadStatus.SUCCESS) {
+			getUserTheme().then(res => {
+				// eslint-disable-next-line no-console
+				console.log(res);
+			});
+		}
+	}, [status]);
+
+	const switchTheme = () => {
+		const data = {
+			userId: 321,
+			theme: 'light',
+		};
+		if (status === LoadStatus.SUCCESS) {
+			updateUserTheme(data).then(res => {
+				// eslint-disable-next-line no-console
+				console.log(res);
+			});
+		}
+	};
+
 	return (
 		<ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
 			<GlobalStyles />
@@ -74,7 +97,7 @@ const App = () => {
 								<Route exact component={Game} path='/game' />
 								<Route render={() => <Redirect to='/' />} />
 							</Switch>
-							<Button content='Switch Theme' onClick={toggleTheme} />
+							<Button content='Switch Theme' onClick={switchTheme} />
 						</main>
 						<WarnModal />
 					</>
