@@ -5,8 +5,11 @@ import UserTheme from '../db/models/UserTheme';
 export const userThemeRouterFactory = () =>
 	Router()
 		.post('/theme', (req, res, next) =>
-			UserTheme.create(req.body)
-				.then(item => res.json(item))
+			UserTheme.findOrCreate({
+				where: { userId: req.body.userId },
+				defaults: { theme: req.body.theme },
+			})
+				.then()
 				.catch(next)
 		)
 		.get('/theme', (req, res, next) => {

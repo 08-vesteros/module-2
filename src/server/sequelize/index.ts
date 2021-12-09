@@ -11,6 +11,9 @@ const sequelizeOptions: SequelizeOptions = {
 	database: 'my-db-name',
 	dialect: 'postgres',
 	models: [Message, Post, UserTheme],
+	define: {
+		freezeTableName: true,
+	},
 };
 
 export const sequelize = new Sequelize(sequelizeOptions);

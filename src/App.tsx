@@ -21,7 +21,7 @@ import Button from './components/Button';
 import { getUserTheme, updateUserTheme } from './utils/theme';
 
 const App = () => {
-	const { status } = useTypedSelector(state => state.user);
+	const { status, item: user } = useTypedSelector(state => state.user);
 	const dispatch = useDispatch();
 	const isLoading = status === LoadStatus.PENDING;
 	const isOnline = checkOnline();
@@ -48,40 +48,41 @@ const App = () => {
 	const routes =
 		status === LoadStatus.SUCCESS ? loggedInRoutes : loggedOutRoutes;
 
-	const [theme, setTheme] = useState<string>(Themes.LIGHT);
+	const [currentTheme, setCurrentTheme] = useState<string>(Themes.LIGHT);
 
 	const toggleTheme = () => {
-		if (theme === Themes.LIGHT) {
-			setTheme(Themes.DARK);
+		if (currentTheme === Themes.LIGHT) {
+			setCurrentTheme(Themes.DARK);
 		} else {
-			setTheme(Themes.LIGHT);
+			setCurrentTheme(Themes.LIGHT);
 		}
 	};
 
 	useEffect(() => {
 		if (status === LoadStatus.SUCCESS) {
+			const data = {
+				userId: user?.id || 0,
+				theme: currentTheme,
+			};
+			updateUserTheme(data).then();
+		}
+	}, [currentTheme]);
+
+	useEffect(() => {
+		if (status === LoadStatus.SUCCESS) {
 			getUserTheme().then(res => {
-				// eslint-disable-next-line no-console
-				console.log(res);
+				if (res.status === 200) {
+					const userTheme = res.data.find(
+						(item: { userId: number | undefined }) => item.userId === user?.id
+					).theme;
+					setCurrentTheme(userTheme);
+				}
 			});
 		}
 	}, [status]);
 
-	const switchTheme = () => {
-		const data = {
-			userId: 321,
-			theme: 'light',
-		};
-		if (status === LoadStatus.SUCCESS) {
-			updateUserTheme(data).then(res => {
-				// eslint-disable-next-line no-console
-				console.log(res);
-			});
-		}
-	};
-
 	return (
-		<ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
+		<ThemeProvider theme={currentTheme === 'light' ? lightTheme : darkTheme}>
 			<GlobalStyles />
 			<div className='container'>
 				{isOnline && isLoading ? (
@@ -97,7 +98,7 @@ const App = () => {
 								<Route exact component={Game} path='/game' />
 								<Route render={() => <Redirect to='/' />} />
 							</Switch>
-							<Button content='Switch Theme' onClick={switchTheme} />
+							<Button content='Switch Theme' onClick={toggleTheme} />
 						</main>
 						<WarnModal />
 					</>
