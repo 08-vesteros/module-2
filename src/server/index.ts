@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { createServer } from 'http';
 import app from './app';
 import { sequelize } from './sequelize';

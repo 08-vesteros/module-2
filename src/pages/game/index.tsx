@@ -1,6 +1,11 @@
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { addUserLeaderBoard } from '../../utils/leaderboard';
-import { CANVAS_WIDTH, CANVAS_HEIGHT, GRAVITY } from '../../constants';
+import {
+	CANVAS_WIDTH,
+	CANVAS_HEIGHT,
+	GRAVITY,
+	PRIMARY_COLOR,
+} from '../../constants';
 import { Wrapper } from '../../ui/wrapper';
 import { Canvas } from './styled';
 import Dino from './utils/dino';
@@ -12,9 +17,11 @@ const overMessage = (ctx: CanvasRenderingContext2D, score: number) => {
 	SOUNDS.playCollision();
 	ctx.textAlign = 'center';
 	ctx.font = '40px sans-serif';
+	ctx.fillStyle = PRIMARY_COLOR;
 	ctx.textBaseline = 'bottom';
 	ctx.fillText('GAME OVER', ctx.canvas.width / 2, ctx.canvas.height / 2);
 	ctx.font = '30px sans-serif';
+	ctx.fillStyle = PRIMARY_COLOR;
 	ctx.textBaseline = 'top';
 	ctx.fillText(
 		`Your score: ${score}`,
@@ -26,6 +33,7 @@ const overMessage = (ctx: CanvasRenderingContext2D, score: number) => {
 const renderScore = (ctx: CanvasRenderingContext2D, score: number) => {
 	ctx.textAlign = 'right';
 	ctx.font = '40px sans-serif';
+	ctx.fillStyle = PRIMARY_COLOR;
 	ctx.fillText(`${score}`, ctx.canvas.width - 15, 45);
 };
 

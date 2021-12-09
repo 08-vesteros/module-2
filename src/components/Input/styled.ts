@@ -8,4 +8,5 @@ export const InputWrapper = styled.input`
 	background-color: transparent;
 	border: 1px solid ${INPUT_BORDER_COLOR};
 	border-radius: 10px;
+	color: ${({ theme }) => theme.inputColor};
 `;
