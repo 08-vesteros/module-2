@@ -1,16 +1,30 @@
 import { Router } from 'express';
-import { Sequelize } from 'sequelize';
+import { Model, Sequelize } from 'sequelize';
 import UserTheme from '../db/models/UserTheme';
+
+async function updateOrCreate(model: any, where: any, newItem: any) {
+	// First try to find the record
+	const foundItem = await model.findOne({ where });
+	if (!foundItem) {
+		// Item not found, create a new one
+		const item = await model.create(newItem);
+		return { item, created: true };
+	}
+	// Found an item, update it
+	const item = await model.update(newItem, { where });
+	return { item, created: false };
+}
 
 export const userThemeRouterFactory = () =>
 	Router()
 		.post('/theme', (req, res, next) =>
-			UserTheme.findOrCreate({
-				where: { userId: req.body.userId },
-				defaults: { theme: req.body.theme },
+			updateOrCreate(
+				UserTheme,
+				{ userId: req.body.userId },
+				{ theme: req.body.theme }
+			).then(result => {
+				res.json(result);
 			})
-				.then()
-				.catch(next)
 		)
 		.get('/theme', (req, res, next) => {
 			UserTheme.findAll()
